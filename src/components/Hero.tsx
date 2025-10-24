@@ -29,12 +29,12 @@ export default function HeroSection() {
       <img
         src={heroPlate}
         alt="Veggies"
-        className="absolute top-[-40px] left-[-60px] w-80 md:w-[420px] object-contain z-20  float"
+        className="absolute top-[-40px] left-[-60px] w-80 md:w-[420px] object-contain  float"
       />
       <img
         src={heroVeg}
         alt="Plate"
-        className="absolute bottom-[-30px] right-[-40px] w-72 md:w-[400px] object-contain z-20 float"
+        className="absolute bottom-[-30px] right-[-40px] w-72 md:w-[400px] object-contain  float"
       />
 
       {/* Content */}
