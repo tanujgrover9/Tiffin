@@ -39,55 +39,38 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-        <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white luckiest-guy-regular">
-          Fresh,{" "}
-          <span className="text-yellow-300 luckiest-guy-regular font-bold">
-           Ghar ki tiffins
-          </span>{" "}
-          delivered <br className="hidden md:block" /> hot to your Ghar
-        </h1>
+  <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white luckiest-guy-regular">
+    Fresh,{" "}
+    <span className="outlined-text text-red-300 luckiest-guy-regular font-bold">
+      Ghar ki tiffins
+    </span>{" "}
+    delivered <br className="hidden md:block" /> hot to your Ghar
+  </h1>
 
-        {/* Search bar */}
-        {/* <div className="flex flex-col md:flex-row items-center bg-white rounded-2xl shadow-lg overflow-hidden w-full max-w-3xl mt-6 border border-gray-100">
-          <div className="flex items-center gap-2 w-full md:w-2/3 px-4 py-3">
-            <Search className="text-gray-500 w-5 h-5" />
-            <input
-              type="text"
-              placeholder="Search for meal plans or tiffins"
-              className="flex-1 text-gray-700 text-sm outline-none"
-            />
+  {/* Feature cards */}
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center w-full max-w-5xl mt-12">
+    {features.map((f, i) => (
+      <div
+        key={i}
+        className="bg-white text-gray-800 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all p-6 flex flex-col justify-between w-60 mx-auto"
+      >
+        <div className="flex flex-col items-start space-y-3">
+          <div className="w-10 h-10 flex items-center justify-center text-orange-500">
+            {f.icon}
           </div>
-        </div> */}
-
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-5xl mt-12">
-          {features.map((f, i) => (
-            <div
-              key={i}
-              className="bg-white text-gray-800 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all p-6 flex flex-col justify-between"
-            >
-              <div className="flex flex-col items-start space-y-3">
-                {f.icon}
-                <h3 className="text-4xl font-bold luckiest-guy-regular">
-                  {f.title}
-                </h3>
-                <p className="text-sm text-gray-600">{f.desc}</p>
-              </div>
-              <div className="mt-6 flex items-center justify-between">
-                <span className="text-xs font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full">
-                  {f.tag}
-                </span>
-                {/* <Link
-                  to="/menu"
-                  className="w-8 h-8 flex items-center justify-center rounded-full bg-orange-500 hover:bg-green-600 transition text-white"
-                >
-                  →
-                </Link> */}
-              </div>
-            </div>
-          ))}
+          <h3 className="text-3xl font-bold luckiest-guy-regular">{f.title}</h3>
+          <p className="text-sm text-gray-600 leading-snug">{f.desc}</p>
+        </div>
+        <div className="mt-6 flex items-center justify-between">
+          <span className="text-xs font-semibold text-green-700 bg-green-100 px-3 py-1 rounded-full">
+            {f.tag}
+          </span>
         </div>
       </div>
+    ))}
+  </div>
+</div>
+
 
       {/* Floating animation */}
       <style>
