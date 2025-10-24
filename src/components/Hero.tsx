@@ -25,7 +25,7 @@ const features = [
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-orange-400 text-gray-900 overflow-hidden">
+    <section className="relative bg-blue-100 text-gray-900 overflow-hidden">
       <img
         src={heroVeg}
         alt="Veggies"
@@ -39,9 +39,9 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-  <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white luckiest-guy-regular">
+  <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-orange-500 luckiest-guy-regular">
     Fresh,{" "}
-    <span className="outlined-text text-red-300 luckiest-guy-regular font-bold">
+    <span className="outlined-text text-yellow-400 luckiest-guy-regular font-bold">
       Ghar ki tiffins
     </span>{" "}
     delivered <br className="hidden md:block" /> hot to your Ghar

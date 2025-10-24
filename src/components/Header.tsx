@@ -38,7 +38,7 @@ export default function Header() {
             <img
               src={logo}
               alt="TiffinToGo Logo"
-              className="w-20 h-15 object-contain rounded-md"
+              className="w-24 h-15 object-contain rounded-md"
             />
           </Link>
 

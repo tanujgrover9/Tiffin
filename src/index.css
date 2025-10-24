@@ -27,11 +27,11 @@ body {
   font-style: normal;
 }
 
-.outlined-text {
+/* .outlined-text {
   color: transparent;
-  -webkit-text-stroke: 2px #ff0000;
-  text-shadow: 3px 3px 0 #ebf708; 
+  -webkit-text-stroke: 2px #dc0a0a;
+  text-shadow: 3px 3px 0 #f8f3f3; 
   background-clip: text;
   -webkit-background-clip: text;
-}
+} */
 
