@@ -1,5 +1,5 @@
 import { Leaf, Truck, DollarSign } from "lucide-react";
-import heroVeg from "../assets/img/hyang-imant-YBkm-PnrSDI-unsplash.png";
+import heroVeg from "../assets/img/hyang-imant-YBkm-PnrSDI-unsplash-min.png";
 import heroPlate from "../assets/img/tangerine-newt-yTjiJlWUJG0-unsplash.png";
 
 const features = [
@@ -25,7 +25,7 @@ const features = [
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-orange-500 text-gray-900 overflow-hidden">
+    <section className="relative bg-orange-400 text-gray-900 overflow-hidden">
       <img
         src={heroVeg}
         alt="Veggies"
@@ -39,7 +39,7 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-        <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white">
+        <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white luckiest-guy-regular">
           Fresh,{" "}
           <span className="text-yellow-300 luckiest-guy-regular font-bold">
            Ghar ki tiffins
