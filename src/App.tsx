@@ -1,31 +1,29 @@
-
-import  Hero from './components/Hero';
-import { Projects } from './components/Projects';
-import { Skills } from './components/Skills';
-import { Experience } from './components/Experience';
-import { Contact } from './components/Contact';
-import { Footer } from './components/Footer';
-import { About } from './components/About';
-// import { CorkboardSections } from './components/CorkboardSections';
-// import { TechStack } from './components/Stack';
-// import { Header } from './components/Header';
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Menu from "./pages/Menu";
+import CartPage from "./pages/Cart";
+import Checkout from "./pages/Checkout";
+import Header from "./components/Header";
+import Orders from "./pages/Orders";
+import AuthPage from "./components/AuthPage";
 
 export default function App() {
   return (
-    <div className="min-h-screen  text-slate-800 bg-cream">
-      {/* Header/Nav can be added here */}
-      <main className=" mx-auto  pb-20">
-        {/* <Header/> */}
-        <Hero />
-      <About/>
-                <Skills />
+    <div
+      className="min-h-screen text-gray-900"
+      
+    >
+      <Header />
+      <main className="max-w-screen mx-auto">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/auth" element={<AuthPage />} />
 
-        <Projects />
-                <Experience />
-                {/* <CorkboardSections/> */}
-
-        <Contact />
-        <Footer />
+        </Routes>
       </main>
     </div>
   );
