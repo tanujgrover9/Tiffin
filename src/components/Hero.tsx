@@ -41,7 +41,7 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
         <h1 className="text-6xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white">
           Fresh,{" "}
-          <span className="text-white luckiest-guy-regular font-bold">
+          <span className="text-yellow-300 luckiest-guy-regular font-bold">
            Ghar ki tiffins
           </span>{" "}
           delivered <br className="hidden md:block" /> hot to your Ghar

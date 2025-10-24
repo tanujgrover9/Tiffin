@@ -130,25 +130,44 @@ export default function Header() {
 
       {/* Floating Sticky Cart */}
       <AnimatePresence>
-        {count > 0 && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: "spring", stiffness: 120 }}
-            className="fixed bottom-5 left-1/2 -translate-x-1/2 md:hidden z-50"
-          >
-            <Link
-              to="/cart"
-              className="flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all"
-            >
-              <ShoppingCart size={20} className="text-white" />
-              <span>{count} item{count > 1 ? "s" : ""} in cart</span>
-              <ArrowUpRight size={16} className="text-white" />
-            </Link>
-          </motion.div>
-        )}
-      </AnimatePresence>
+  {count > 0 && (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.8, y: 50 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.8, y: 50 }}
+      transition={{ type: "spring", stiffness: 120 }}
+      className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50"
+    >
+      <Link
+        to="/cart"
+        className="flex items-center justify-center gap-3 
+          bg-white/20 backdrop-blur-xl 
+          border border-white/30 shadow-lg shadow-orange-500/20 
+          px-6 py-3 rounded-full 
+          text-white font-semibold
+          transition-all duration-300
+          hover:bg-white/30 hover:scale-105"
+        style={{
+          background: "#f97316",
+          boxShadow: "0 8px 24px rgba(255,165,0,0.3), 0 0 15px rgba(255,255,255,0.2)",
+        }}
+      >
+        <div className="bg-orange-500/90 p-2 rounded-full shadow-md backdrop-blur-lg">
+          <ShoppingCart size={20} className="text-grey-700" />
+        </div>
+        <span className="text-sm">
+          {count} item{count > 1 ? "s" : ""} in cart
+        </span>
+        <div className="bg-black/60 p-2 rounded-full shadow-inner">
+          <ArrowUpRight size={16} className="text-white" />
+        </div>
+      </Link>
+    </motion.div>
+  )}
+</AnimatePresence>
+
+
+
     </>
   );
 }

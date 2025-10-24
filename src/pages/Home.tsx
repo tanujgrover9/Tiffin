@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from "react";
+
+// import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Star, ShoppingCart, ArrowUpRight } from "lucide-react";
-import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import { Star } from "lucide-react";
+// import {  useAnimation } from "framer-motion";
 
 import WhyChooseUs from "../components/WhyChooseUs";
 import Footer from "../components/Footer";
@@ -22,15 +22,14 @@ import dish8 from "../../src/assets/projects/download (3).jpeg";
 import dish9 from "../../src/assets/projects/download (4).jpeg";
 
 // Mock Cart Store
-const useCartStore = () => {
-  const [items, setItems] = useState<{ id: number; qty: number; price: number }[]>([]);
-  return { items, setItems };
-};
+// const useCartStore = () => {
+//   const [items, setItems] = useState<{ id: number; qty: number; price: number }[]>([]);
+//   return { items, setItems };
+// };
 
 export default function Home() {
-  const cartStore = useCartStore();
-  const [count, setCount] = useState(0);
-  const controls = useAnimation(); // for pulse animation
+  // const cartStore = useCartStore();
+  // const controls = useAnimation(); 
 
   const SAMPLE_MENU = [
     { id: 1, name: "Paneer Butter Masala", description: "Rich creamy gravy with soft paneer cubes.", price: 180, image: dish1 },
@@ -44,22 +43,22 @@ export default function Home() {
     { id: 9, name: "Chole Bhature", description: "Crispy dosa filled with spiced potato filling, served with chutney.", price: 120, image: dish9 },
   ];
 
-  const handleAddToCart = (dish: any) => {
-    const existing = cartStore.items.find(i => i.id === dish.id);
-    if (existing) {
-      cartStore.setItems(
-        cartStore.items.map(i => (i.id === dish.id ? { ...i, qty: i.qty + 1 } : i))
-      );
-    } else {
-      cartStore.setItems([...cartStore.items, { id: dish.id, qty: 1, price: dish.price }]);
-    }
-    setCount(cartStore.items.reduce((a, b) => a + b.qty, 0) + 1);
+  // const handleAddToCart = (dish: any) => {
+  //   const existing = cartStore.items.find(i => i.id === dish.id);
+  //   if (existing) {
+  //     cartStore.setItems(
+  //       cartStore.items.map(i => (i.id === dish.id ? { ...i, qty: i.qty + 1 } : i))
+  //     );
+  //   } else {
+  //     cartStore.setItems([...cartStore.items, { id: dish.id, qty: 1, price: dish.price }]);
+  //   }
+  //   setCount(cartStore.items.reduce((a, b) => a + b.qty, 0) + 1);
 
-    // Pulse animation
-    controls.start({ scale: [1, 1.15, 1], transition: { duration: 0.3 } });
-  };
+   
+  //   controls.start({ scale: [1, 1.15, 1], transition: { duration: 0.3 } });
+  // };
 
-  const totalPrice = cartStore.items.reduce((acc, i) => acc + i.qty * i.price, 0);
+  // const totalPrice = cartStore.items.reduce((acc, i) => acc + i.qty * i.price, 0);
 
   return (
     <div className="min-h-screen relative">
@@ -103,12 +102,12 @@ export default function Home() {
                     <div className="inline-block bg-amber-500 text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md">
                       ₹{d.price}
                     </div>
-                    <button
+                    {/* <button
                       onClick={() => handleAddToCart(d)}
                       className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white bg-orange-500 shadow-md hover:shadow-lg"
                     >
                       <ShoppingCart size={16}/> Add
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -116,7 +115,7 @@ export default function Home() {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/menu" className="inline-block bg-green-600 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all">
+            <Link to="/menu" className="inline-block bg-orange-600 hover:bg-amber-600 text-white px-6 py-3 rounded-full font-semibold shadow-md transition-all">
               View Full Menu
             </Link>
           </div>
@@ -130,7 +129,7 @@ export default function Home() {
       <Footer />
 
     
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {count > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 100, scale: 0.9 }}
@@ -173,9 +172,9 @@ export default function Home() {
             </motion.div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
 
-      <style>
+      {/* <style>
         {`
           @keyframes gentleFloat {
             0%, 100% { transform: translateY(0); }
@@ -185,7 +184,7 @@ export default function Home() {
             animation: gentleFloat 5s ease-in-out infinite;
           }
         `}
-      </style>
+      </style> */}
 
 
     </div>

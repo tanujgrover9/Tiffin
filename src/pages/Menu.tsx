@@ -4,21 +4,17 @@ import { motion } from "framer-motion";
 import { Search, SlidersHorizontal, Filter, XCircle } from "lucide-react";
 import { SAMPLE_MENU } from "../data/sampleMenu";
 import DishCard from "../components/DishCard";
-import { useCartStore } from "../store/cartStore";
-// import type { Category } from "../types.d";
+// import { useCartStore } from "../store/cartStore";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 // --- Category Images ---
 import momo from "../assets/categories/momo.png";
 import biryani from "../assets/categories/biryani.png";
-// import noodles from "../assets/categories/noodles.jpg";
-// import paratha from "../assets/categories/paratha.png";
 import pasta from "../assets/categories/pasta.png";
 import samosa from "../assets/categories/samosa.png";
 import gulabjamun from "../assets/categories/gulabjamun.png";
 import icecream from "../assets/categories/icecream.png";
-// import kebab from "../assets/categories/kebab.png";
 import shawarma from "../assets/categories/shawarma.png";
 
 export default function Menu() {
@@ -26,19 +22,15 @@ export default function Menu() {
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("none");
   const [maxPrice, setMaxPrice] = useState(1000);
-  const add = useCartStore((s) => s.add);
 
   const categoryItems = [
     { name: "All", image: momo },
     { name: "Momo", image: momo },
     { name: "Biryani", image: biryani },
-    // { name: "Noodles", image: noodles },
-    // { name: "Paratha", image: paratha },
     { name: "Pasta", image: pasta },
     { name: "Samosa", image: samosa },
     { name: "Gulab Jamun", image: gulabjamun },
     { name: "Ice Cream", image: icecream },
-    // { name: "Kebab", image: kebab },
     { name: "Shawarma", image: shawarma },
   ];
 
@@ -51,15 +43,17 @@ export default function Menu() {
         m.price <= maxPrice
     );
 
+    // Safe rating sort: treat undefined as 0
     if (sortBy === "priceLowHigh") list.sort((a, b) => a.price - b.price);
     if (sortBy === "priceHighLow") list.sort((a, b) => b.price - a.price);
-    if (sortBy === "rating") list.sort((a, b) => b.rating - a.rating);
+    if (sortBy === "rating")
+      list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0));
 
     return list;
   }, [activeCategory, searchQuery, maxPrice, sortBy]);
 
   return (
-    <div className="min-h-screen font-outfit px-4 md:px-10 py-8 ">
+    <div className="min-h-screen font-outfit px-4 md:px-10 py-8">
       {/* Header */}
       <div className="text-center mb-8">
         <h1 className="text-5xl font-bold text-gray-900">
@@ -79,7 +73,6 @@ export default function Menu() {
         <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
           Choose Your Favorite Category
         </h2>
-
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 justify-items-center">
           {categoryItems.map((cat) => (
             <motion.div
@@ -93,7 +86,7 @@ export default function Menu() {
                   : "opacity-90 hover:opacity-100"
               }`}
             >
-              <div className="  p-4">
+              <div className="p-4">
                 <img
                   src={cat.image}
                   alt={cat.name}
@@ -183,7 +176,7 @@ export default function Menu() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <DishCard dish={d} onAdd={() => add(d, 1)} />
+              <DishCard dish={d} />
             </motion.div>
           ))
         ) : (
@@ -210,7 +203,7 @@ export default function Menu() {
         >
           {SAMPLE_MENU.slice(0, 6).map((d) => (
             <div key={d.id} className="px-3">
-              <DishCard dish={d} onAdd={() => add(d, 1)} />
+              <DishCard dish={d} />
             </div>
           ))}
         </Carousel>
