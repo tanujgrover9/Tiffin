@@ -8,7 +8,7 @@ import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
-import heroDietImg from "../assets/diet/hero-diet.jpg";
+import heroDietImg from "../assets/diet/hero-diet-min.jpg";
 import All from "../assets/img/WhatsApp Image 2025-10-19 at 17.37.50_d401016b.png";
 
 export default function DietMenu() {
