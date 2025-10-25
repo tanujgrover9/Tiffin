@@ -139,7 +139,7 @@ export default function DietMenu() {
                   <img
                     src={cat.image}
                     alt={cat.name}
-                    className="w-30 h-30  rounded-full"
+                    className="w-22 h-22  rounded-full"
                   />
                 </div>
                 <span className="mt-3 text-gray-700 font-medium text-sm truncate max-w-[80px]">
