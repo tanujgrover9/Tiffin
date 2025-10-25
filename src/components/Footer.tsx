@@ -1,97 +1,118 @@
 import { Facebook, Instagram, Twitter } from "lucide-react";
-import footerBg from "../../src/assets/projects/42133.png";
+// import footerBg from "../../src/assets/projects/42133.png";
 
 export default function Footer() {
   return (
     <footer
-      className="relative text-black overflow-hidden"
-      style={{
-        backgroundImage: `url(${footerBg})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
+      className="relative text-[#1a1a1a] overflow-hidden"
+      // style={{
+      //   backgroundImage: `url(${footerBg})`,
+      //   backgroundSize: "cover",
+      //   backgroundPosition: "center",
+      // }}
     >
-      {/* Overlay for better text contrast */}
-      <div className="absolute inset-0 bg-orange-100" />
+      {/* Warm overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-orange-50/90 via-orange-100/80 to-orange-200/90 backdrop-blur-sm" />
 
-      <div className="relative z-10 max-w-full mx-auto px-6  py-16 flex flex-col items-center text-center">
-        {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-extrabold  mb-4 ">
-          Tiffin <br />{" "}
-          <span className="luckiest-guy-regular">Ghar ka Khana</span>
-        </h2>
+      {/* Main Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-16">
+        {/* Top Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left gap-10">
+          {/* Brand Info */}
+          <div className="space-y-3">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#d04a00] luckiest-guy-regular">
+              Tiffin
+            </h2>
+            <p className="text-xl font-bold text-[#ff7b3f] luckiest-guy-regular">
+              Ghar ka Khana
+            </p>
+            <p className="text-sm text-[#333] max-w-xs">
+              Fresh, home-style tiffins delivered daily — hot, healthy & on time.
+            </p>
+          </div>
 
-        {/* Tagline */}
-        <p className=" text-sm mb-10">
-          Fresh, home-style tiffins delivered daily to your doorstep.
-        </p>
+          {/* Quick Links Grid */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10 text-sm">
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#d04a00] font-semibold mb-1">Explore</h3>
+              <a href="/menu" className="hover:text-[#ff7b3f] transition">
+                Menu
+              </a>
+              <a href="/plans" className="hover:text-[#ff7b3f] transition">
+                Meal Plans
+              </a>
+              <a href="/about" className="hover:text-[#ff7b3f] transition">
+                About Us
+              </a>
+              <a href="/contact" className="hover:text-[#ff7b3f] transition">
+                Contact
+              </a>
+            </div>
 
-        {/* Navigation Links */}
-        <div className="flex flex-wrap justify-center gap-8 text-sm  mb-8">
-          <a href="/menu" className="hover:text-orange-500 transition">
-            Menu
-          </a>
-          <a href="/plans" className="hover:text-orange-500 transition">
-            Meal Plans
-          </a>
-          <a href="/about" className="hover:text-orange-500 transition">
-            About Us
-          </a>
-          <a href="/contact" className="hover:text-orange-500 transition">
-            Contact
-          </a>
-          <a href="/faq" className="hover:text-orange-500 transition">
-            FAQs
-          </a>
-          <a href="/terms" className="hover:text-orange-500 transition">
-            Terms & Conditions
-          </a>
-          <a href="/privacy" className="hover:text-orange-500 transition">
-            Privacy Policy
-          </a>
-          <a href="/help" className="hover:text-orange-500 transition">
-            Help Center
-          </a>
-        </div>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#d04a00] font-semibold mb-1">Support</h3>
+              <a href="/faq" className="hover:text-[#ff7b3f] transition">
+                FAQs
+              </a>
+              <a href="/help" className="hover:text-[#ff7b3f] transition">
+                Help Center
+              </a>
+              <a href="/privacy" className="hover:text-[#ff7b3f] transition">
+                Privacy Policy
+              </a>
+              <a href="/terms" className="hover:text-[#ff7b3f] transition">
+                Terms & Conditions
+              </a>
+            </div>
 
-        {/* Contact Button */}
-        <a
-          href="/contact"
-          className="bg-[#ff9b7b] hover:bg-[#ff8763] text-[#0a3d2c] font-semibold px-6 py-2 rounded-md transition"
-        >
-          CONTACT US
-        </a>
-
-        {/* Social Icons */}
-        <div className="flex items-center gap-4 mt-8">
-          <a
-            href="#"
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <Twitter size={18} />
-          </a>
-          <a
-            href="#"
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <Instagram size={18} />
-          </a>
-          <a
-            href="#"
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
-          >
-            <Facebook size={18} />
-          </a>
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#d04a00] font-semibold mb-1">Contact</h3>
+              <p className="text-[#333]">anshumansingh5499@gmail.com</p>
+              <p className="text-[#333]">+91 7080216257</p>
+              <a
+                href="/contact"
+                className="inline-block mt-2 bg-[#ff9b7b] hover:bg-[#ff7b3f] text-[#1a1a1a] font-semibold px-4 py-1.5 rounded-full text-xs transition shadow-sm"
+              >
+                Get in Touch
+              </a>
+            </div>
+          </div>
         </div>
 
         {/* Divider */}
-        <div className="h-px w-2/3 bg-white/20 my-8"></div>
+        <div className="border-t border-orange-300/50 mt-12 mb-6"></div>
 
-        {/* Bottom Info */}
-        <div className="flex flex-col md:flex-row items-center justify-between w-full text-xs text-green-200 gap-2">
+        {/* Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#4b4b4b]">
           <p>© {new Date().getFullYear()} TiffinBox. All Rights Reserved.</p>
-          <p>Small change. Big impact.</p>
+
+          {/* Social Icons */}
+          <div className="flex gap-4">
+            <a
+              href="#"
+              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
+            >
+              <Twitter size={18} />
+            </a>
+            <a
+              href="#"
+              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
+            >
+              <Instagram size={18} />
+            </a>
+            <a
+              href="#"
+              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
+            >
+              <Facebook size={18} />
+            </a>
+          </div>
         </div>
+
+        {/* Tagline */}
+        <p className="text-center text-xs text-[#6b4e36] mt-3 italic">
+          “Small change. Big impact.”
+        </p>
       </div>
     </footer>
   );
