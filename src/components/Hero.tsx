@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min.png";
+import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
 import heroPlate from "../assets/img/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png";
 
 import imgFresh from "../assets/vectorImg/salad.png";

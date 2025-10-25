@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Lock, Mail, User, ArrowRight } from "lucide-react";
-import chef from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash.png";
+import chef from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
