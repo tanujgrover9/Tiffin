@@ -1,6 +1,12 @@
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Search, SlidersHorizontal, Filter, XCircle, ArrowLeft } from "lucide-react";
+import {
+  Search,
+  SlidersHorizontal,
+  Filter,
+  XCircle,
+  ArrowLeft,
+} from "lucide-react";
 import { DIET_MENU } from "../data/dietMenu";
 import DishCard from "../components/DishCard";
 import Carousel from "react-multi-carousel";
@@ -19,10 +25,15 @@ export default function DietMenu() {
   const navigate = useNavigate();
   const categoriesRef = useRef<HTMLDivElement | null>(null);
 
+  // ✅ Always scroll to top on page load
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, []);
+
   const categories = useMemo(() => {
     const arr: { name: string; image: string }[] = [{ name: "All", image: All }];
     DIET_MENU.forEach((dish) => {
-      arr.push({ name: dish.name, image: dish.image ?? "" }); 
+      arr.push({ name: dish.name, image: dish.image ?? "" });
     });
     return arr;
   }, []);
@@ -35,7 +46,8 @@ export default function DietMenu() {
         (m.calories ?? 0) <= maxCalories
     );
 
-    if (selectedCategory !== "All") list = list.filter((m) => m.name === selectedCategory);
+    if (selectedCategory !== "All")
+      list = list.filter((m) => m.name === selectedCategory);
 
     if (sortBy === "priceLowHigh") list.sort((a, b) => a.price - b.price);
     if (sortBy === "priceHighLow") list.sort((a, b) => b.price - a.price);
@@ -101,7 +113,9 @@ export default function DietMenu() {
               className="mt-6"
             >
               <button
-                onClick={() => categoriesRef.current?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() =>
+                  categoriesRef.current?.scrollIntoView({ behavior: "smooth" })
+                }
                 className="inline-flex items-center gap-3 bg-white/95 text-lime-700 font-semibold px-5 py-3 rounded-2xl shadow-lg hover:scale-105 transition-transform"
               >
                 Explore Healthy Dishes
@@ -110,45 +124,39 @@ export default function DietMenu() {
           </div>
         </div>
 
-        <div id="categories" ref={categoriesRef} className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-lime-700 mb-8">
-            Choose Your Favorite Dish
-          </h2>
+        {/* 🧩 Category Section */}
+       <div className="flex flex-wrap justify-center gap-8">
+  {categories.map((cat) => (
+    <motion.div
+      key={cat.name}
+      onClick={() => setSelectedCategory(cat.name)}
+      whileHover={{ scale: 1.07 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: "spring", stiffness: 200, damping: 15 }}
+      className={`cursor-pointer flex flex-col items-center transition-transform transform-gpu ${
+        selectedCategory === cat.name ? "scale-110" : "hover:scale-105"
+      }`}
+    >
+      <div
+        className={`w-36 h-36 rounded-full border-4 transition-all ${
+          selectedCategory === cat.name
+            ? "border-lime-500 shadow-lg"
+            : "border-transparent"
+        }`}
+      >
+        <img
+          src={cat.image}
+          alt={cat.name}
+          className="w-full h-full object-cover rounded-full"
+        />
+      </div>
+      <span className="mt-3 text-gray-700 font-medium text-sm truncate max-w-[80px]">
+        {cat.name}
+      </span>
+    </motion.div>
+  ))}
+</div>
 
-          <div className="flex flex-wrap justify-center gap-8">
-            {categories.map((cat) => (
-              <motion.div
-                key={cat.name}
-                onClick={() => setSelectedCategory(cat.name)}
-                whileHover={{
-                
-                 
-                }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                className={`cursor-pointer flex flex-col items-center transition-transform transform-gpu ${
-                  selectedCategory === cat.name ? "scale-110" : "hover:scale-105"
-                }`}
-              >
-                <div
-                  className={`w-36 h-36 rounded-full  transition-all ${
-                    selectedCategory === cat.name
-                      ? ""
-                      : ""
-                  }`}
-                >
-                  <img
-                    src={cat.image}
-                    alt={cat.name}
-                    className="w-22 h-22  rounded-full"
-                  />
-                </div>
-                <span className="mt-3 text-gray-700 font-medium text-sm truncate max-w-[80px]">
-                  {cat.name}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </div>
 
         {/* 🔍 Filter/Search Bar */}
         <motion.div
