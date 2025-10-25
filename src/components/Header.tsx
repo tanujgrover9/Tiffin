@@ -7,6 +7,7 @@ import {
   ArrowUpRight,
   Menu,
   X,
+  ClipboardList,
 } from "lucide-react";
 import { useCartStore } from "../store/cartStore";
 import { motion, AnimatePresence } from "framer-motion";
@@ -20,6 +21,9 @@ export default function Header() {
 
   const navLinks = [
     { to: "/", label: "Home", icon: <Home size={16} /> },
+    { to: "/orders", label: "Orders", icon: <ClipboardList size={16} /> },
+
+    
   ];
 
   return (

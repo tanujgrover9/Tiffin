@@ -22,6 +22,7 @@ export default function App() {
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/orders" element={<Orders />} />
 
         </Routes>
       </main>
