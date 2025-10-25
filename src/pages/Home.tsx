@@ -43,22 +43,7 @@ export default function Home() {
     { id: 9, name: "Chole Bhature", description: "Crispy dosa filled with spiced potato filling, served with chutney.", price: 120, image: dish9 },
   ];
 
-  // const handleAddToCart = (dish: any) => {
-  //   const existing = cartStore.items.find(i => i.id === dish.id);
-  //   if (existing) {
-  //     cartStore.setItems(
-  //       cartStore.items.map(i => (i.id === dish.id ? { ...i, qty: i.qty + 1 } : i))
-  //     );
-  //   } else {
-  //     cartStore.setItems([...cartStore.items, { id: dish.id, qty: 1, price: dish.price }]);
-  //   }
-  //   setCount(cartStore.items.reduce((a, b) => a + b.qty, 0) + 1);
-
-   
-  //   controls.start({ scale: [1, 1.15, 1], transition: { duration: 0.3 } });
-  // };
-
-  // const totalPrice = cartStore.items.reduce((acc, i) => acc + i.qty * i.price, 0);
+ 
 
   return (
     <div className="min-h-screen relative">

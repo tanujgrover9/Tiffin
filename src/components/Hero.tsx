@@ -46,13 +46,7 @@ export default function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-        {/* <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight max-w-3xl text-white luckiest-guy-regular drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
-          Fresh,{" "}
-          <span className="outlined-text text-yellow-400 luckiest-guy-regular font-bold">
-            Ghar ki tiffins
-          </span>{" "}
-          delivered <br className="hidden md:block" /> hot to your Ghar
-        </h1> */}
+       
 
         {/* Feature Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-center w-full max-w-5xl mt-10">
