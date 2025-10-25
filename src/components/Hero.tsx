@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min.png";
-import heroPlate from "../assets/img/tangerine-newt-yTjiJlWUJG0-unsplash.png";
+import heroPlate from "../assets/img/tangerine-newt-yTjiJlWUJG0-unsplash-min.png";
 
 import imgFresh from "../assets/vectorImg/salad.png";
 import imgFast from "../assets/vectorImg/delivery.png";
@@ -29,7 +29,7 @@ const features = [
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-orange-500 text-gray-900 overflow-hidden">
+    <section className="relative bg-orange-500 text-gray-900 overflow-hidden rounded-t-[20px]">
       {/* Left Image */}
       <img
         src={heroPlate}

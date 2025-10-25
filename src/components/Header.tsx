@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-orange-500 backdrop-blur-md  sticky top-0 z-50">
+      <header className="bg-orange-500 backdrop-blur-md  sticky top-0 z-50 border-b-4 border-white rounded-b-[20px]">
         <div className="max-w-8xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between rounded-full ">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">

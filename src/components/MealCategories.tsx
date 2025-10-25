@@ -41,7 +41,7 @@ export default function MealCategories() {
                 className="object-contain w-12 h-12 transition-transform duration-300 hover:scale-110"
               />
             </div>
-            <h3 className="text-3xl font-semibold text-gray-800 luckiest-guy-regular">
+            <h3 className="text-2xl font-semibold text-gray-800 luckiest-guy-regular">
               {cat.name}
             </h3>
             <p className="text-sm text-gray-600 mt-1">{cat.desc}</p>
