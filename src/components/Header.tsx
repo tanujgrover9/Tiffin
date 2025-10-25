@@ -31,19 +31,15 @@ export default function Header() {
 
   return (
     <>
-      <header className="bg-white/90 backdrop-blur-md border border-gray-100 shadow-sm sticky top-0 z-50">
-        <div className="max-w-8xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between rounded-full mt-3">
+      <header className="bg-orange-500 backdrop-blur-md  sticky top-0 z-50">
+        <div className="max-w-8xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between rounded-full ">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <img
-              src={logo}
-              alt="TiffinToGo Logo"
-              className="w-24 h-15 object-contain rounded-md"
-            />
+           <h1 className="text-4xl font-extrabold luckiest-guy-regular text-white ">Tiffin <span className="text-white">.</span></h1>
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-3 text-gray-700">
+          <nav className="hidden md:flex items-center gap-3 text-gray-100">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -77,7 +73,7 @@ export default function Header() {
 
             {/* CTA Button */}
             <Link to="/auth">
-              <button className="hidden md:flex items-center gap-2 bg-orange-500 hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
+              <button className="hidden md:flex items-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
                 Open Account
                 <div className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">
                   <ArrowUpRight size={14} />
@@ -116,9 +112,9 @@ export default function Header() {
               ))}
 
               <Link to="/auth" onClick={() => setOpen(false)}>
-                <button className="w-full flex items-center justify-center gap-2 bg-orange-300 hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
+                <button className="w-full flex items-center justify-center gap-2 bg-white hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
                   Open Account
-                  <div className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">
+                  <div className="w-6 h-6 bg-black text-white  flex items-center justify-center rounded-full">
                     <ArrowUpRight size={14} />
                   </div>
                 </button>

@@ -32,7 +32,7 @@ export default function MealCategories() {
         {categories.map((cat, i) => (
           <div
             key={i}
-            className="bg-orange-100 rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
+            className="bg-white rounded-2xl p-6 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col items-center text-center"
           >
             <div className="w-20 h-20 rounded-full bg-white shadow flex items-center justify-center mb-4 overflow-hidden">
               <img
