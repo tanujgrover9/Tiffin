@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { useCartStore } from "../store/cartStore";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/Tif (1).png";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
