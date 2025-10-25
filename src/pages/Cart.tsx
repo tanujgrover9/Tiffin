@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCartStore } from "../store/cartStore";
@@ -10,7 +10,7 @@ type Coupon = {
   id: string;
   label: string;
   type: "percent" | "flat";
-  value: number; // percent (10) or flat (50)
+  value: number;
   minSubtotal?: number;
   desc?: string;
 };
@@ -24,28 +24,21 @@ export default function CartPage() {
 
   const navigate = useNavigate();
 
-  // Delivery constant
   const DELIVERY_FEE = subtotal > 0 ? 20 : 0;
-
-  // modal state
   const [showModal, setShowModal] = useState(false);
-
-  // Coupon state
   const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
 
-  // Predefined coupons (you can extend this array)
   const coupons: Coupon[] = [
     { id: "SAVE20", label: "SAVE20", type: "percent", value: 20, desc: "20% off sitewide" },
     { id: "UPI50", label: "UPI50", type: "flat", value: 50, minSubtotal: 200, desc: "₹50 off on UPI payments over ₹200" },
     { id: "WELCOME10", label: "WELCOME10", type: "percent", value: 10, desc: "10% off for first order (max ₹100)" },
   ];
 
-  const calcDiscount = (coupon: Coupon | null, base: number) => {
+  const calcDiscount = (coupon: Coupon | null, base: number): number => {
     if (!coupon) return 0;
     if (coupon.minSubtotal && base < coupon.minSubtotal) return 0;
     if (coupon.type === "percent") {
-      // Optionally cap discounts if you like; currently uncapped
       return Math.round((base * coupon.value) / 100);
     }
     return coupon.value;
@@ -56,8 +49,7 @@ export default function CartPage() {
   const delivery = discountedSubtotal > 0 ? DELIVERY_FEE : 0;
   const total = discountedSubtotal + delivery;
 
-  // UI helpers
-  const handleApplyCoupon = () => {
+  const handleApplyCoupon = (): void => {
     const code = couponInput.trim().toUpperCase();
     if (!code) {
       toast.error("Enter a coupon code");
@@ -77,44 +69,43 @@ export default function CartPage() {
     toast.success(`Coupon ${found.label} applied — saved ${formatINR(calcDiscount(found, subtotal))}`);
   };
 
-  const handleRemove = (id: string) => {
+  const handleRemove = (id: string): void => {
     const removedItem = items.find((i) => i.dish.id === id);
     remove(id);
-    toast(
-      (t) => (
-        <div className="flex items-center justify-between gap-4">
-          <span>{removedItem?.dish.name} removed</span>
-          <button
-            className="text-amber-500 font-medium"
-            onClick={() => {
-              // restore quantity (best-effort; assumes updateQty can re-add item)
-              updateQty(id, removedItem!.qty);
-              toast.dismiss(t.id);
-            }}
-          >
-            Undo
-          </button>
-        </div>
-      ),
-      { duration: 4000 }
-    );
+    if (removedItem) {
+      toast(
+        (t) => (
+          <div className="flex items-center justify-between gap-4">
+            <span>{removedItem.dish.name} removed</span>
+            <button
+              className="text-amber-500 font-medium"
+              onClick={() => {
+                updateQty(id, removedItem.qty);
+                toast.dismiss(t.id);
+              }}
+            >
+              Undo
+            </button>
+          </div>
+        ),
+        { duration: 4000 }
+      );
+    }
   };
 
-  const handleQtyChange = (id: string, nextQty: number) => {
+  const handleQtyChange = (id: string, nextQty: number): void => {
     if (nextQty <= 0) {
-      // confirm removal when attempting to go to 0
       remove(id);
       return;
     }
     updateQty(id, nextQty);
   };
 
-  const handleProceedToCheckout = () => {
-    // navigate to checkout while passing applied coupon and discount amount via router state
+  const handleProceedToCheckout = (): void => {
     navigate("/checkout", { state: { appliedCoupon, discountAmount } });
   };
 
-  const handleClearCart = () => {
+  const handleClearCart = (): void => {
     clear();
     setAppliedCoupon(null);
     toast.success("Cart cleared");
@@ -123,6 +114,7 @@ export default function CartPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-10 flex flex-col items-center">
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-sm p-6 md:p-10">
+        {/* Header */}
         <div className="flex items-center justify-between gap-4 mb-6">
           <Link to="/" className="flex items-center gap-2 text-gray-600 hover:text-gray-900">
             <ArrowLeft size={18} /> <span className="font-medium">Back to Home</span>
@@ -130,8 +122,9 @@ export default function CartPage() {
           <div className="text-gray-500 text-sm">Group Order • Step 2 of 3</div>
         </div>
 
+        {/* Layout */}
         <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
-          {/* Left: Cart items + offers */}
+          {/* LEFT - Cart Items */}
           <div className="space-y-6">
             <div className="flex items-start justify-between">
               <h2 className="text-2xl font-semibold text-gray-900">Your Cart</h2>
@@ -162,7 +155,9 @@ export default function CartPage() {
                       <div>
                         <h4 className="font-semibold text-gray-800">{item.dish.name}</h4>
                         <p className="text-sm text-gray-500">{formatINR(item.dish.price)} each</p>
-                        <p className="text-sm text-gray-500 mt-1">Subtotal: {formatINR(item.dish.price * item.qty)}</p>
+                        <p className="text-sm text-gray-500 mt-1">
+                          Subtotal: {formatINR(item.dish.price * item.qty)}
+                        </p>
                       </div>
                     </div>
 
@@ -220,7 +215,7 @@ export default function CartPage() {
                   </div>
                 </div>
 
-                {/* Coupon input */}
+                {/* Coupon Input */}
                 <div className="border rounded-xl p-4 bg-white flex flex-col gap-3">
                   <div className="flex items-center justify-between">
                     <h4 className="font-medium text-gray-800">Have a coupon?</h4>
@@ -268,7 +263,7 @@ export default function CartPage() {
             )}
           </div>
 
-          {/* Right: Summary */}
+          {/* RIGHT - Order Summary */}
           <aside className="bg-gray-50 border rounded-xl p-6 sticky top-6 h-fit">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold text-gray-800">Order Summary</h3>
@@ -332,7 +327,7 @@ export default function CartPage() {
           </aside>
         </div>
 
-        {/* Mobile / Bottom Sheet - modal */}
+        {/* MODAL - Mobile Bottom Sheet */}
         <AnimatePresence>
           {showModal && (
             <>
@@ -348,7 +343,7 @@ export default function CartPage() {
                 drag="y"
                 dragConstraints={{ top: 0, bottom: 300 }}
                 dragElastic={0.3}
-                onDragEnd={(e, info) => info.point.y > 200 && setShowModal(false)}
+                onDragEnd={(_, info) => info.point.y > 200 && setShowModal(false)}
                 initial={{ y: 300, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 300, opacity: 0 }}
@@ -367,7 +362,9 @@ export default function CartPage() {
                     <div key={item.dish.id} className="flex justify-between items-center">
                       <div>
                         <p className="font-medium">{item.dish.name}</p>
-                        <p className="text-sm text-gray-500">{formatINR(item.dish.price)} × {item.qty}</p>
+                        <p className="text-sm text-gray-500">
+                          {formatINR(item.dish.price)} × {item.qty}
+                        </p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
