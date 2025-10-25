@@ -67,7 +67,7 @@ export default function HeroSection() {
                 <h3 className="text-4xl sm:text-3xl md:text-5xl font-bold luckiest-guy-regular">
                   {f.title}
                 </h3>
-                <p className="text-base sm:text-sm md:text-base text-gray-600 leading-snug">
+                <p className="text-base sm:text-sm md:text-base text-gray-600 ">
                   {f.desc}
                 </p>
               </div>
