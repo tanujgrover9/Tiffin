@@ -4,9 +4,6 @@ import { Link, useLocation } from "react-router-dom";
 import {
   ShoppingCart,
   Home,
-  Box,
-  ClipboardList,
-  Phone,
   ArrowUpRight,
   Menu,
   X,
@@ -23,18 +20,18 @@ export default function Header() {
 
   const navLinks = [
     { to: "/", label: "Home", icon: <Home size={16} /> },
-    { to: "/menu", label: "Menu", icon: <Box size={16} /> },
-    { to: "/orders", label: "Orders", icon: <ClipboardList size={16} /> },
-    { to: "/contact", label: "Contact", icon: <Phone size={16} /> },
   ];
 
   return (
     <>
-      <header className="bg-orange-500 backdrop-blur-md  sticky top-0 z-50 border-b-4 border-white rounded-b-[20px]">
-        <div className="max-w-8xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between rounded-full ">
+      {/* Header */}
+      <header className="bg-orange-500 backdrop-blur-md sticky top-0 z-50 border-b-4 border-white rounded-b-[20px] shadow-md">
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-           <h1 className="text-4xl font-extrabold luckiest-guy-regular text-white ">Tiffin <span className="text-white">.</span></h1>
+            <h1 className="text-4xl font-extrabold luckiest-guy-regular text-white">
+              Tiffin<span className="text-white">.</span>
+            </h1>
           </Link>
 
           {/* Desktop Nav */}
@@ -44,9 +41,9 @@ export default function Header() {
                 key={link.to}
                 to={link.to}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                  loc.pathname === link.to || loc.pathname.startsWith(link.to)
-                    ? "bg-gray-100 text-gray-900 font-semibold"
-                    : "hover:bg-gray-50"
+                  loc.pathname === link.to
+                    ? "bg-white text-orange-600 font-semibold"
+                    : "hover:bg-white/20 hover:text-white"
                 }`}
               >
                 {link.icon}
@@ -55,16 +52,19 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right Side */}
+          {/* Right Section */}
           <div className="flex items-center gap-3">
             {/* Cart Icon */}
             <Link
               to="/cart"
-              className="relative bg-gray-100 hover:bg-gray-200 p-3 rounded-full transition"
+              className="relative group bg-white p-3 rounded-full shadow-md hover:shadow-lg hover:bg-orange-100 transition-all duration-300"
             >
-              <ShoppingCart size={22} className="text-gray-700" />
+              <ShoppingCart
+                size={22}
+                className="text-orange-600 group-hover:scale-110 transition-transform duration-200"
+              />
               {count > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full w-5 h-5 flex items-center justify-center shadow">
                   {count}
                 </span>
               )}
@@ -72,7 +72,7 @@ export default function Header() {
 
             {/* CTA Button */}
             <Link to="/auth">
-              <button className="hidden md:flex items-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
+              <button className="hidden md:flex items-center gap-2 bg-black hover:bg-lime-400 hover:text-black text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
                 Open Account
                 <div className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">
                   <ArrowUpRight size={14} />
@@ -82,7 +82,7 @@ export default function Header() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden bg-gray-100 p-2 rounded-full"
+              className="md:hidden bg-white/20 p-2 rounded-full border border-white/40 text-white"
               onClick={() => setOpen(!open)}
             >
               {open ? <X size={20} /> : <Menu size={20} />}
@@ -100,7 +100,7 @@ export default function Header() {
                   to={link.to}
                   onClick={() => setOpen(false)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                    loc.pathname === link.to || loc.pathname.startsWith(link.to)
+                    loc.pathname === link.to
                       ? "bg-gray-100 text-gray-900 font-semibold"
                       : "hover:bg-gray-50"
                   }`}
@@ -111,9 +111,9 @@ export default function Header() {
               ))}
 
               <Link to="/auth" onClick={() => setOpen(false)}>
-                <button className="w-full flex items-center justify-center gap-2 bg-white hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
+                <button className="w-full flex items-center justify-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
                   Open Account
-                  <div className="w-6 h-6 bg-black text-white  flex items-center justify-center rounded-full">
+                  <div className="w-6 h-6 bg-white/20 flex items-center justify-center rounded-full">
                     <ArrowUpRight size={14} />
                   </div>
                 </button>
@@ -123,46 +123,38 @@ export default function Header() {
         )}
       </header>
 
-      {/* Floating Sticky Cart */}
+      {/* Floating Sticky Cart - Mobile */}
       <AnimatePresence>
-  {count > 0 && (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.8, y: 50 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.8, y: 50 }}
-      transition={{ type: "spring", stiffness: 120 }}
-      className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50"
-    >
-      <Link
-        to="/cart"
-        className="flex items-center justify-center gap-3 
-          bg-white/20 backdrop-blur-xl 
-          border border-white/30 shadow-lg shadow-orange-500/20 
-          px-6 py-3 rounded-full 
-          text-white font-semibold
-          transition-all duration-300
-          hover:bg-white/30 hover:scale-105"
-        style={{
-          background: "#f97316",
-          boxShadow: "0 8px 24px rgba(255,165,0,0.3), 0 0 15px rgba(255,255,255,0.2)",
-        }}
-      >
-        <div className="bg-orange-500/90 p-2 rounded-full shadow-md backdrop-blur-lg">
-          <ShoppingCart size={20} className="text-grey-700" />
-        </div>
-        <span className="text-sm">
-          {count} item{count > 1 ? "s" : ""} in cart
-        </span>
-        <div className="bg-black/60 p-2 rounded-full shadow-inner">
-          <ArrowUpRight size={16} className="text-white" />
-        </div>
-      </Link>
-    </motion.div>
-  )}
-</AnimatePresence>
-
-
-
+        {count > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 60 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 60 }}
+            transition={{ type: "spring", stiffness: 120 }}
+            className="fixed bottom-6 left-1/2 -translate-x-1/2 lg:hidden z-50"
+          >
+            <Link
+              to="/cart"
+              className="flex items-center justify-center gap-3 px-6 py-3 rounded-full 
+                bg-gradient-to-r from-orange-500 to-red-400 text-white 
+                shadow-lg shadow-orange-600/40 
+                backdrop-blur-lg border border-white/20 
+                hover:scale-105 hover:shadow-xl active:scale-95
+                transition-all duration-300"
+            >
+              <div className="bg-white/20 p-2 rounded-full">
+                <ShoppingCart size={20} />
+              </div>
+              <span className="text-sm font-semibold">
+                {count} item{count > 1 ? "s" : ""} in cart
+              </span>
+              <div className="bg-black/40 p-2 rounded-full">
+                <ArrowUpRight size={16} />
+              </div>
+            </Link>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
