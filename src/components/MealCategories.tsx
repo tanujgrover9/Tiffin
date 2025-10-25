@@ -16,16 +16,15 @@ const categories = [
 
 export default function MealCategories() {
   return (
-    <section className="px-8 md:px-16 py-16  text-center">
+    <section className="px-8 md:px-16 py-16  ">
       <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
-        Explore Our{" "}
+        {/* Explore Our{" "} */}
         <span className="text-orange-500 luckiest-guy-regular">
           Meal Categories
         </span>
       </h2>
-      <p className="text-gray-600 max-w-2xl mx-auto mb-12">
-        Choose from freshly prepared meals for every time of day — healthy,
-        delicious, and made with love.
+      <p className="text-gray-600 max-w-2xl  mb-12">
+        Choose from freshly prepared meals for every time of day 
       </p>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">

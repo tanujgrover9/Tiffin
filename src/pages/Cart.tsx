@@ -5,6 +5,7 @@ import { useCartStore } from "../store/cartStore";
 import { formatINR } from "../lib/currency";
 import { Trash2, CreditCard, Smartphone, X, ArrowLeft } from "lucide-react";
 import { toast } from "react-hot-toast";
+import { getDishImage } from "../utils/getDishImage"; // ✅ added import
 
 type Coupon = {
   id: string;
@@ -137,57 +138,63 @@ export default function CartPage() {
               </div>
             ) : (
               <div className="space-y-4">
-                {items.map((item) => (
-                  <motion.div
-                    key={item.dish.id}
-                    layout
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    className="border rounded-xl p-4 md:p-5 flex items-center justify-between gap-4 hover:shadow-md transition"
-                  >
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={`https://source.unsplash.com/100x100/?${encodeURIComponent(item.dish.name + ",food")}`}
-                        alt={item.dish.name}
-                        className="w-20 h-20 rounded-lg object-cover"
-                      />
-                      <div>
-                        <h4 className="font-semibold text-gray-800">{item.dish.name}</h4>
-                        <p className="text-sm text-gray-500">{formatINR(item.dish.price)} each</p>
-                        <p className="text-sm text-gray-500 mt-1">
-                          Subtotal: {formatINR(item.dish.price * item.qty)}
-                        </p>
-                      </div>
-                    </div>
+                {items.map((item) => {
+                  const localImage = getDishImage(item.dish.name); // ✅ use helper
+                  const imageSrc =
+                    localImage || `https://source.unsplash.com/100x100/?${encodeURIComponent(item.dish.name + ",food")}`;
 
-                    <div className="flex items-center gap-3">
-                      <div className="flex items-center border rounded-md overflow-hidden">
-                        <button
-                          className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
-                          onClick={() => handleQtyChange(item.dish.id, item.qty - 1)}
-                        >
-                          -
-                        </button>
-                        <div className="w-12 text-center font-medium">{item.qty}</div>
-                        <button
-                          className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
-                          onClick={() => handleQtyChange(item.dish.id, item.qty + 1)}
-                        >
-                          +
-                        </button>
+                  return (
+                    <motion.div
+                      key={item.dish.id}
+                      layout
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: 6 }}
+                      className="border rounded-xl p-4 md:p-5 flex items-center justify-between gap-4 hover:shadow-md transition"
+                    >
+                      <div className="flex items-center gap-4">
+                        <img
+                          src={imageSrc}
+                          alt={item.dish.name}
+                          className="w-20 h-20 rounded-lg object-cover"
+                        />
+                        <div>
+                          <h4 className="font-semibold text-gray-800">{item.dish.name}</h4>
+                          <p className="text-sm text-gray-500">{formatINR(item.dish.price)} each</p>
+                          <p className="text-sm text-gray-500 mt-1">
+                            Subtotal: {formatINR(item.dish.price * item.qty)}
+                          </p>
+                        </div>
                       </div>
 
-                      <button
-                        onClick={() => handleRemove(item.dish.id)}
-                        className="text-gray-400 hover:text-red-600 p-2 rounded-md"
-                        title="Remove item"
-                      >
-                        <Trash2 size={18} />
-                      </button>
-                    </div>
-                  </motion.div>
-                ))}
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center border rounded-md overflow-hidden">
+                          <button
+                            className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
+                            onClick={() => handleQtyChange(item.dish.id, item.qty - 1)}
+                          >
+                            -
+                          </button>
+                          <div className="w-12 text-center font-medium">{item.qty}</div>
+                          <button
+                            className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
+                            onClick={() => handleQtyChange(item.dish.id, item.qty + 1)}
+                          >
+                            +
+                          </button>
+                        </div>
+
+                        <button
+                          onClick={() => handleRemove(item.dish.id)}
+                          className="text-gray-400 hover:text-red-600 p-2 rounded-md"
+                          title="Remove item"
+                        >
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
 
                 {/* Offers */}
                 <div className="border rounded-xl p-5 bg-white">

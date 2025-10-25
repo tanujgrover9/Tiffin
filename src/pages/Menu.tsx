@@ -8,7 +8,8 @@ import DishCard from "../components/DishCard";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-// --- Category Images ---
+// --- Category Images --
+import all from '../assets/categories/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png'
 import momo from "../assets/categories/momo.png";
 import biryani from "../assets/categories/biryani.png";
 import pasta from "../assets/categories/pasta.png";
@@ -24,7 +25,7 @@ export default function Menu() {
   const [maxPrice, setMaxPrice] = useState(1000);
 
   const categoryItems = [
-    { name: "All", image: momo },
+    { name: "All", image: all },
     { name: "Momo", image: momo },
     { name: "Biryani", image: biryani },
     { name: "Pasta", image: pasta },
@@ -55,22 +56,22 @@ export default function Menu() {
   return (
     <div className="min-h-screen font-outfit px-4 md:px-10 py-8">
       {/* Header */}
-      <div className="text-center mb-8">
+      <div className=" mb-8">
         <h1 className="text-5xl font-bold text-gray-900">
-          Explore Our{" "}
+          {/* Explore Our{" "} */}
           <span className="text-orange-500 luckiest-guy-regular">
             Delicious Menu
           </span>
         </h1>
-        <p className="text-gray-500 mt-2">
+        {/* <p className="text-gray-500 mt-2">
           Discover our best food options — browse by category or search your
           favorite dish
-        </p>
+        </p> */}
       </div>
 
       {/* Category Section */}
       <section className="mb-10">
-        <h2 className="text-2xl font-semibold text-gray-800 mb-4 text-center">
+        <h2 className="  text-gray-800 mb-4 ">
           Choose Your Favorite Category
         </h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 justify-items-center">

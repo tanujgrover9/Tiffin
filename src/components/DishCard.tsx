@@ -1,14 +1,21 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import type { Dish } from "../types.d";
-import { ShoppingBag, Star, X, Leaf, Pizza, Coffee, Minus, Plus, Clock } from "lucide-react";
+import {
+  ShoppingBag,
+  Star,
+  X,
+  Leaf,
+  Pizza,
+  Coffee,
+  Minus,
+  Plus,
+  Clock,
+} from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "../store/cartStore";
+import { getDishImage } from "../utils/getDishImage";
 
-export default function DishCard({
-  dish,
-}: {
-  dish: Dish;
-}) {
+export default function DishCard({ dish }: { dish: Dish }) {
   const [open, setOpen] = useState(false);
 
   const cartItems = useCartStore((s) => s.items);
@@ -49,6 +56,12 @@ export default function DishCard({
     updateQty(dish.id, Math.max(0, quantity - 1));
   };
 
+  // Automatically load image from local assets
+  const imageSrc =
+    dish.image ||
+    getDishImage(dish.name) ||
+    "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800&auto=format&fit=crop";
+
   return (
     <>
       {/* Card */}
@@ -61,12 +74,16 @@ export default function DishCard({
         {/* Image */}
         <div className="relative w-full h-56 overflow-hidden">
           <motion.img
-            src={dish.image || "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800&auto=format&fit=crop"}
+            src={imageSrc}
             alt={dish.name}
             className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent"></div>
-          <div className={`absolute top-3 right-3 w-3 h-3 rounded-full border border-white ${isVeg ? "bg-green-500" : "bg-red-500"}`}></div>
+          <div
+            className={`absolute top-3 right-3 w-3 h-3 rounded-full border border-white ${
+              isVeg ? "bg-green-500" : "bg-red-500"
+            }`}
+          ></div>
         </div>
 
         {/* Content */}
@@ -89,12 +106,15 @@ export default function DishCard({
             </div>
 
             <p className="text-gray-600 text-sm mt-2 line-clamp-2 leading-relaxed">
-              {dish.description || "Crafted with premium ingredients for a delightful experience."}
+              {dish.description ||
+                "Crafted with premium ingredients for a delightful experience."}
             </p>
           </div>
 
           <div className="flex items-center justify-between mt-5">
-            <span className="text-xl font-semibold text-gray-900">₹{dish.price}</span>
+            <span className="text-xl font-semibold text-gray-900">
+              ₹{dish.price}
+            </span>
 
             {/* Quantity Control */}
             <AnimatePresence mode="wait" initial={false}>
@@ -118,11 +138,19 @@ export default function DishCard({
                   exit={{ opacity: 0, y: -10 }}
                   className="flex items-center bg-gradient-to-r from-green-50 to-green-100 rounded-full px-3 py-1.5 shadow-sm"
                 >
-                  <button onClick={handleDecrease} className="p-1 text-green-700 hover:text-green-900">
+                  <button
+                    onClick={handleDecrease}
+                    className="p-1 text-green-700 hover:text-green-900"
+                  >
                     <Minus size={16} />
                   </button>
-                  <span className="px-3 text-sm font-semibold text-gray-800">{quantity}</span>
-                  <button onClick={handleIncrease} className="p-1 text-green-700 hover:text-green-900">
+                  <span className="px-3 text-sm font-semibold text-gray-800">
+                    {quantity}
+                  </span>
+                  <button
+                    onClick={handleIncrease}
+                    className="p-1 text-green-700 hover:text-green-900"
+                  >
                     <Plus size={16} />
                   </button>
                 </motion.div>
@@ -149,13 +177,20 @@ export default function DishCard({
               className="relative bg-white/90 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl w-[90%] max-w-lg p-7"
             >
               {/* Close */}
-              <button onClick={() => setOpen(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors">
+              <button
+                onClick={() => setOpen(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+              >
                 <X size={22} />
               </button>
 
               {/* Image */}
               <div className="w-full h-64 rounded-2xl overflow-hidden mb-6 shadow-sm">
-                <img src={dish.image || "https://source.unsplash.com/800x600/?food"} alt={dish.name} className="object-cover w-full h-full" />
+                <img
+                  src={imageSrc}
+                  alt={dish.name}
+                  className="object-cover w-full h-full"
+                />
               </div>
 
               {/* Modal Info */}
@@ -173,11 +208,15 @@ export default function DishCard({
                     15–20 mins
                   </div>
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed">{dish.description}</p>
+                <p className="text-gray-700 text-sm leading-relaxed">
+                  {dish.description}
+                </p>
               </div>
 
               <div className="flex items-center justify-between mt-8">
-                <span className="text-2xl font-bold text-gray-900">₹{dish.price}</span>
+                <span className="text-2xl font-bold text-gray-900">
+                  ₹{dish.price}
+                </span>
                 <motion.button
                   onClick={() => add(dish, 1)}
                   whileHover={{ scale: 1.05 }}
