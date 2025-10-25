@@ -10,6 +10,7 @@ import Checkout from "./pages/Checkout";
 // import OrderTracking from "./pages/OrderTracking";
 import "./index.css";
 import AuthPage from "./components/AuthPage";
+import DietMenu from "./pages/DietMenu";
 
 const root = ReactDOM.createRoot(document.getElementById("root")!);
 
@@ -23,6 +24,8 @@ root.render(
           <Route path="cart" element={<Cart />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="/auth" element={<AuthPage />} />
+                    <Route path="/diet" element={<DietMenu />} />
+          
 
           {/* <Route path="order-tracking" element={<OrderTracking />} /> */}
         </Route>

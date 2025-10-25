@@ -25,6 +25,7 @@ export default function WhyChooseUs() {
 
   return (
     <section className="relative py-24 overflow-hidden">
+      
       {/* Decorative glowing circles */}
 
       <div className="relative max-w-6xl mx-auto px-6">

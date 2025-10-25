@@ -55,6 +55,8 @@ export default function Menu() {
 
   return (
     <div className="min-h-screen font-outfit px-4 md:px-10 py-8">
+    
+
       {/* Header */}
       <div className=" mb-8">
         <h1 className="text-5xl font-bold text-gray-900">

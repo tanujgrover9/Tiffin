@@ -6,6 +6,7 @@ import Checkout from "./pages/Checkout";
 import Header from "./components/Header";
 import Orders from "./pages/Orders";
 import AuthPage from "./components/AuthPage";
+import DietMenu from "./pages/DietMenu";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/orders" element={<Orders />} />
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/orders" element={<Orders />} />
+          <Route path="/diet" element={<DietMenu />} />
 
         </Routes>
       </main>

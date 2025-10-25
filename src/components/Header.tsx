@@ -19,17 +19,23 @@ export default function Header() {
   );
   const loc = useLocation();
 
+  // Conditional header color
+  const headerBg =
+    loc.pathname === "/diet"
+      ? "bg-lime-600 border-b-4 border-white"
+      : "bg-orange-500 border-b-4 border-white";
+
   const navLinks = [
     { to: "/", label: "Home", icon: <Home size={16} /> },
     { to: "/orders", label: "Orders", icon: <ClipboardList size={16} /> },
-
-    
   ];
 
   return (
     <>
       {/* Header */}
-      <header className="bg-orange-500 backdrop-blur-md sticky top-0 z-50 border-b-4 border-white rounded-b-[20px] shadow-md">
+      <header
+        className={`${headerBg} backdrop-blur-md sticky top-0 z-50 rounded-b-[20px] shadow-md transition-colors duration-500`}
+      >
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
@@ -61,7 +67,7 @@ export default function Header() {
             {/* Cart Icon */}
             <Link
               to="/cart"
-              className="relative group bg-white p-3 rounded-full shadow-md hover:shadow-lg hover:bg-orange-100 transition-all duration-300"
+              className="relative group bg-white p-3 rounded-full shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-300"
             >
               <ShoppingCart
                 size={22}

@@ -1,77 +1,85 @@
 import { Facebook, Instagram, Twitter } from "lucide-react";
-// import footerBg from "../../src/assets/projects/42133.png";
 
 export default function Footer() {
   return (
-    <footer
-      className="relative text-[#1a1a1a] overflow-hidden"
-      // style={{
-      //   backgroundImage: `url(${footerBg})`,
-      //   backgroundSize: "cover",
-      //   backgroundPosition: "center",
-      // }}
-    >
-      {/* Warm overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-orange-50/90 via-orange-100/80 to-orange-200/90 backdrop-blur-sm" />
+    <footer className="relative text-[#1a1a1a] overflow-hidden bg-gradient-to-b from-orange-100 via-orange-200/80 to-orange-50 backdrop-blur-sm border-t border-orange-200/60">
+      {/* Decorative overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-orange-50/60 to-transparent pointer-events-none" />
 
-      {/* Main Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-16">
-        {/* Top Section */}
+      {/* Content */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-16 space-y-12">
+        {/* 🔶 Top Row */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left gap-10">
-          {/* Brand Info */}
-          <div className="space-y-3">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#d04a00] luckiest-guy-regular">
-              Tiffin
+          {/* Logo & Description */}
+          <div className="space-y-3 md:max-w-xs">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#d04a00] tracking-tight  luckiest-guy-regular">
+              Tiffin<span className="text-[#ff7b3f]">Box</span>
             </h2>
-            <p className="text-xl font-bold text-[#ff7b3f] luckiest-guy-regular">
+            <p className="text-lg font-semibold text-[#ff7b3f] uppercase tracking-wide  luckiest-guy-regular">
               Ghar ka Khana
             </p>
-            <p className="text-sm text-[#333] max-w-xs">
-              Fresh, home-style tiffins delivered daily — hot, healthy & on time.
+            <p className="text-sm text-[#333] leading-relaxed">
+              Fresh, nutritious, and home-cooked meals — crafted with love and
+              delivered hot every day.
             </p>
           </div>
 
-          {/* Quick Links Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-10 text-sm">
+          {/* Navigation Columns */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 text-sm">
+            {/* Explore */}
             <div className="flex flex-col gap-2">
-              <h3 className="text-[#d04a00] font-semibold mb-1">Explore</h3>
-              <a href="/menu" className="hover:text-[#ff7b3f] transition">
-                Menu
-              </a>
-              <a href="/plans" className="hover:text-[#ff7b3f] transition">
-                Meal Plans
-              </a>
-              <a href="/about" className="hover:text-[#ff7b3f] transition">
-                About Us
-              </a>
-              <a href="/contact" className="hover:text-[#ff7b3f] transition">
+              <h3 className="text-[#d04a00] font-bold mb-2 uppercase tracking-wide text-xs">
+                Explore
+              </h3>
+              {[
+                { name: "Menu", link: "/menu" },
+                { name: "Meal Plans", link: "/plans" },
+                { name: "About Us", link: "/about" },
+                { name: "Contact", link: "/contact" },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.link}
+                  className="hover:text-[#ff7b3f] transition"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Support */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#d04a00] font-bold mb-2 uppercase tracking-wide text-xs">
+                Support
+              </h3>
+              {[
+                { name: "FAQs", link: "/faq" },
+                { name: "Help Center", link: "/help" },
+                { name: "Privacy Policy", link: "/privacy" },
+                { name: "Terms & Conditions", link: "/terms" },
+              ].map((item) => (
+                <a
+                  key={item.name}
+                  href={item.link}
+                  className="hover:text-[#ff7b3f] transition"
+                >
+                  {item.name}
+                </a>
+              ))}
+            </div>
+
+            {/* Contact */}
+            <div className="flex flex-col gap-2">
+              <h3 className="text-[#d04a00] font-bold mb-2 uppercase tracking-wide text-xs">
                 Contact
-              </a>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <h3 className="text-[#d04a00] font-semibold mb-1">Support</h3>
-              <a href="/faq" className="hover:text-[#ff7b3f] transition">
-                FAQs
-              </a>
-              <a href="/help" className="hover:text-[#ff7b3f] transition">
-                Help Center
-              </a>
-              <a href="/privacy" className="hover:text-[#ff7b3f] transition">
-                Privacy Policy
-              </a>
-              <a href="/terms" className="hover:text-[#ff7b3f] transition">
-                Terms & Conditions
-              </a>
-            </div>
-
-            <div className="flex flex-col gap-2">
-              <h3 className="text-[#d04a00] font-semibold mb-1">Contact</h3>
-              <p className="text-[#333]">anshumansingh5499@gmail.com</p>
-              <p className="text-[#333]">+91 7080216257</p>
+              </h3>
+              <p className="text-[#333] text-sm">
+                anshumansingh5499@gmail.com
+              </p>
+              <p className="text-[#333] text-sm">+91 7080216257</p>
               <a
                 href="/contact"
-                className="inline-block mt-2 bg-[#ff9b7b] hover:bg-[#ff7b3f] text-[#1a1a1a] font-semibold px-4 py-1.5 rounded-full text-xs transition shadow-sm"
+                className="inline-block mt-2 bg-[#ff7b3f] hover:bg-[#ff9b7b] text-white font-semibold px-4 py-1.5 rounded-full text-xs transition shadow-md hover:shadow-lg"
               >
                 Get in Touch
               </a>
@@ -79,41 +87,35 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-orange-300/50 mt-12 mb-6"></div>
+        {/* 🔸 Divider */}
+        <div className="h-px bg-gradient-to-r from-transparent via-orange-300/60 to-transparent" />
 
-        {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-[#4b4b4b]">
-          <p>© {new Date().getFullYear()} TiffinBox. All Rights Reserved.</p>
+        {/* 🔻 Bottom Section */}
+        <div className="flex flex-col md:flex-row justify-between items-center gap-5 text-sm text-[#4b4b4b]">
+          <p>© {new Date().getFullYear()} <span className="font-semibold">TiffinBox</span>. All Rights Reserved.</p>
 
           {/* Social Icons */}
           <div className="flex gap-4">
-            <a
-              href="#"
-              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
-            >
-              <Twitter size={18} />
-            </a>
-            <a
-              href="#"
-              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
-            >
-              <Instagram size={18} />
-            </a>
-            <a
-              href="#"
-              className="p-2 rounded-full bg-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-md"
-            >
-              <Facebook size={18} />
-            </a>
+            {[Twitter, Instagram, Facebook].map((Icon, i) => (
+              <a
+                key={i}
+                href="#"
+                className="p-2 rounded-full bg-white/80 border border-orange-200 hover:bg-[#ff7b3f] hover:text-white transition shadow-sm hover:shadow-md"
+              >
+                <Icon size={18} />
+              </a>
+            ))}
           </div>
         </div>
 
-        {/* Tagline */}
+        {/* 💬 Tagline */}
         <p className="text-center text-xs text-[#6b4e36] mt-3 italic">
-          “Small change. Big impact.”
+          “A taste of home, wherever you are.”
         </p>
       </div>
+
+      {/* Subtle glow */}
+      <div className="absolute -bottom-8 left-0 right-0 h-20 bg-gradient-to-t from-orange-200/40 to-transparent blur-2xl" />
     </footer>
   );
 }

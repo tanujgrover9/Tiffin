@@ -6,8 +6,14 @@ export interface Dish {
   description: string;
   price: number;
   category: Category;
-  rating?: number;    
-  image?: string;     
+  rating?: number;    // optional and typed safely
+  image?: string;     // optional image
+
+  // Nutrition info (optional)
+  sugar?: number;
+  fat?: number;
+  protein?: number;
+  calories?: number;
 }
 
 export interface CartItem {
