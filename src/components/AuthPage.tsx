@@ -5,7 +5,7 @@ import chef from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png"
 
 export default function AuthPage() {
   const [isSignUp, setIsSignUp] = useState(false);
-
+–
   return (
     <div className="min-h-screen flex flex-col md:flex-row font-[Outfit]">
       {/* Left Side - Image */}

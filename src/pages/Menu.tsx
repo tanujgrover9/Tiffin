@@ -59,7 +59,7 @@ export default function Menu() {
 
       {/* Header */}
       <div className=" mb-8">
-        <h1 className="text-5xl font-bold text-gray-900">
+        <h1 className="text-3xl font-bold text-gray-900">
           {/* Explore Our{" "} */}
           <span className="text-orange-500 luckiest-guy-regular">
             Delicious Menu
