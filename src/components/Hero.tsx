@@ -83,7 +83,7 @@ export default function HeroSection() {
               >
                 {/* Text Section */}
                 <div className="flex flex-col items-start space-y-3">
-                  <h3 className="text-3xl md:text-4xl font-bold luckiest-guy-regular">
+                  <h3 className="text-4xl md:text-5xl font-bold luckiest-guy-regular">
                     {f.title}
                   </h3>
                   <p className="text-sm md:text-base text-gray-600 leading-snug">
