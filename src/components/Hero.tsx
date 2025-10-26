@@ -32,7 +32,7 @@ export default function HeroSection() {
     <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
       {/* 🔸 Continuous Marquee Bar (no white background) */}
       <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 py-3 overflow-hidden border-b border-yellow-500 shadow-md">
-        <div className="flex whitespace-nowrap animate-marquee font-semibold text-[15px] md:text-base tracking-wide items-center gap-12 text-gray-800">
+        <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg md:text-base tracking-wide items-center gap-12 text-gray-800">
           {/* Duplicate content for smooth loop */}
           {[...Array(2)].map((_, i) => (
             <div key={i} className="flex items-center gap-12">
@@ -83,7 +83,7 @@ export default function HeroSection() {
               >
                 {/* Text Section */}
                 <div className="flex flex-col items-start space-y-3">
-                  <h3 className="text-4xl md:text-4xl font-bold luckiest-guy-regular">
+                  <h3 className="text-4xl md:text-4xl font-extrabold luckiest-guy-regular">
                     {f.title}
                   </h3>
                   <p className="text-sm md:text-base text-gray-600 leading-snug">
