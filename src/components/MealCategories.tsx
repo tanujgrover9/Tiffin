@@ -36,7 +36,7 @@ export default function MealCategories() {
 
   return (
     <section className="px-8 md:px-16 py-16">
-      <h2 className="text-3xl md:text-5xl font-extrabold text-gray-900 mb-4">
+      <h2 className="text-3xl md:text-3xl font-extrabold text-gray-900 mb-4">
         <span className="text-orange-500 luckiest-guy-regular">
           Explore Our Meals
         </span>

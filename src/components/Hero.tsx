@@ -29,72 +29,108 @@ const features = [
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-orange-500 text-gray-900 overflow-hidden rounded-t-[20px] border-t-4 border-white">
-      {/* Background images adjusted for mobile */}
-      <div className="absolute inset-0 overflow-hidden">
-        <img
-          src={heroPlate}
-          alt="Plate"
-          className="absolute left-[-40px] top-[10%] w-40 opacity-40 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
-        />
-        <img
-          src={heroVeg}
-          alt="Veggies"
-          className="absolute right-[-40px] top-[40%] w-40 opacity-40 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
-        />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-       
-
-        {/* Feature Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 justify-center w-full max-w-5xl mt-10">
-          {features.map((f, i) => (
-            <div
-              key={i}
-              className="relative bg-white text-gray-800 rounded-3xl border border-gray-100 shadow-lg hover:shadow-xl transition-all w-[90%] sm:w-72 md:w-80 h-[280px] md:h-[300px] mx-auto flex flex-col justify-between p-5 md:p-6"
-            >
-              {/* Text Section */}
-              <div className="flex flex-col items-start space-y-2">
-                {/* Increased font sizes on mobile */}
-                <h3 className="text-4xl sm:text-3xl md:text-5xl font-bold luckiest-guy-regular">
-                  {f.title}
-                </h3>
-                <p className="text-base sm:text-sm md:text-base text-gray-600 ">
-                  {f.desc}
-                </p>
-              </div>
-
-              {/* Bottom Section */}
-              <div className="flex items-end justify-between mt-auto pt-4">
-                {/* Left: Tag + Button */}
-                <div className="flex flex-col items-start gap-2">
-                  <span className="text-[10px] sm:text-[11px] font-semibold text-orange-600 bg-orange-100 rounded-full px-3 py-1 shadow-sm">
-                    {f.tag}
-                  </span>
-                  <button className="flex items-center gap-1 text-[11px] sm:text-[11px] font-medium text-white bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-full transition">
-                    Explore <ArrowRight size={12} />
-                  </button>
-                </div>
-
-                {/* Right: Image */}
-                <img
-                  src={f.img}
-                  alt={f.title}
-                  className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 object-contain drop-shadow-md"
-                />
-              </div>
+    <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
+      {/* 🔸 Continuous Marquee Bar (no white background) */}
+      <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 py-3 overflow-hidden border-b border-yellow-500 shadow-md">
+        <div className="flex whitespace-nowrap animate-marquee font-semibold text-[15px] md:text-base tracking-wide items-center gap-12 text-gray-800">
+          {/* Duplicate content for smooth loop */}
+          {[...Array(2)].map((_, i) => (
+            <div key={i} className="flex items-center gap-12">
+              <span>● No Delivery Charge</span>
+              <span>● Fresh Hot Foods</span>
+              <span>● No Extra Charges</span>
+              <span>● Deliver Within 25 Minutes</span>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Floating animation */}
+      {/* Small yellow fade separator */}
+      <div className="h-5 bg-gradient-to-b from-yellow-300 to-transparent"></div>
+
+      {/* 🔸 Hero Section */}
+      <div className="relative bg-orange-500 overflow-hidden rounded-t-[20px] text-white">
+        {/* Background images */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={heroPlate}
+            alt="Plate"
+            className="absolute left-[-40px] top-[10%] w-40 opacity-30 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
+          />
+          <img
+            src={heroVeg}
+            alt="Veggies"
+            className="absolute right-[-40px] top-[40%] w-40 opacity-30 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
+          />
+        </div>
+
+        {/* Main content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight drop-shadow-sm luckiest-guy-regular">
+            Healthy. Fresh. Affordable.
+          </h1>
+          <p className="text-lg md:text-xl text-orange-50 max-w-2xl leading-relaxed">
+            Discover the taste of home with every bite — meals made with love,
+            delivered fast, and priced just right.
+          </p>
+
+          {/* Feature Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full max-w-6xl mt-10">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="relative bg-white text-gray-800 rounded-3xl border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all w-[90%] sm:w-72 md:w-80 h-[280px] md:h-[300px] mx-auto flex flex-col justify-between p-6"
+              >
+                {/* Text Section */}
+                <div className="flex flex-col items-start space-y-3">
+                  <h3 className="text-3xl md:text-4xl font-bold luckiest-guy-regular">
+                    {f.title}
+                  </h3>
+                  <p className="text-sm md:text-base text-gray-600 leading-snug">
+                    {f.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Section */}
+                <div className="flex items-end justify-between mt-auto pt-4">
+                  <div className="flex flex-col items-start gap-2">
+                    <span className="text-[11px] font-semibold text-orange-600 bg-orange-100 rounded-full px-3 py-1 shadow-sm">
+                      {f.tag}
+                    </span>
+                    <button className="flex items-center gap-1 text-[12px] font-medium text-white bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-full transition">
+                      Explore <ArrowRight size={14} />
+                    </button>
+                  </div>
+
+                  <img
+                    src={f.img}
+                    alt={f.title}
+                    className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-md"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 🔸 Animations */}
       <style>
         {`
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .animate-marquee {
+            display: inline-flex;
+            animation: marquee 18s linear infinite;
+            align-items: center;
+          }
+          .animate-marquee:hover {
+            animation-play-state: paused;
+          }
           @keyframes float {
-            0%, 100% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
           }
           .float {
