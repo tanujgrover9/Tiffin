@@ -65,14 +65,14 @@ export default function HeroSection() {
         </div>
 
         {/* Main content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight drop-shadow-sm luckiest-guy-regular">
+        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-10 md:py-5 space-y-8">
+          {/* <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight drop-shadow-sm luckiest-guy-regular">
             Healthy<span className="text-blue-600">.</span> Fresh<span className="text-green-400">.</span> Affordable<span className="text-yellow-400">.</span>
           </h1>
           <p className="text-lg md:text-xl text-orange-50 max-w-2xl leading-relaxed">
             Discover the taste of home with every bite — meals made with love,
             delivered fast, and priced just right.
-          </p>
+          </p> */}
 
           {/* Feature Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full max-w-6xl mt-10">
