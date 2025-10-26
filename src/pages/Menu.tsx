@@ -54,7 +54,7 @@ export default function Menu() {
   }, [activeCategory, searchQuery, maxPrice, sortBy]);
 
   return (
-    <div className="min-h-screen font-outfit px-4 md:px-10 py-8">
+    <div id="indian-food-section" className="min-h-screen font-outfit px-4 md:px-10 py-8">
     
 
       {/* Header */}
