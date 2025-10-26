@@ -67,7 +67,7 @@ export default function HeroSection() {
         {/* Main content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 md:py-28 space-y-8">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight drop-shadow-sm luckiest-guy-regular">
-            Healthy. Fresh. Affordable.
+            Healthy<span className="text-blue-600">.</span> Fresh<span className="text-green-400">.</span> Affordable<span className="text-yellow-400">.</span>
           </h1>
           <p className="text-lg md:text-xl text-orange-50 max-w-2xl leading-relaxed">
             Discover the taste of home with every bite — meals made with love,
