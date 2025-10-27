@@ -312,10 +312,10 @@ export default function Checkout() {
                   </div>
                 </label>
               </div>
-              <p className="mt-3 text-sm text-amber-600 font-medium">⚠️ Currently, we only accept Cash on Delivery.</p>
+              <p className="mt-3 text-sm text-orange-600 font-medium">⚠️ Currently, we only accept Cash on Delivery.</p>
             </div>
 
-            <button type="submit" className="w-full py-3 bg-amber-500 text-white font-semibold rounded-lg hover:bg-amber-600 transition">
+            <button type="submit" className="w-full py-3 bg-orange-500 text-white font-semibold rounded-full hover:bg-amber-600 transition">
               Place Order
             </button>
           </form>
@@ -370,7 +370,7 @@ export default function Checkout() {
                   placeholder="Enter coupon code"
                   className="flex-1 rounded-lg border-gray-300 px-3 py-2 shadow-sm focus:ring-amber-500 focus:border-amber-500"
                 />
-                <button onClick={applyCouponOnCheckout} className="px-4 py-2 rounded-lg bg-amber-500 text-white">
+                <button onClick={applyCouponOnCheckout} className="px-4 py-2 rounded-full bg-orange-500 text-white">
                   Apply
                 </button>
               </div>
@@ -463,11 +463,11 @@ export default function Checkout() {
                 </div>
 
                 <div className="mt-6 flex gap-3">
-                  <button onClick={() => setShowPreview(false)} className="flex-1 py-3 rounded-lg border border-gray-200 text-gray-700 font-medium hover:bg-gray-50">
+                  <button onClick={() => setShowPreview(false)} className="flex-1 py-3 rounded-full border border-gray-200 text-gray-700 font-medium hover:bg-gray-50">
                     Edit Details
                   </button>
 
-                  <button onClick={confirmAndSend} className="flex-1 py-3 rounded-lg text-white font-semibold" style={{ backgroundColor: "#25D366" }}>
+                  <button onClick={confirmAndSend} className="flex-1 py-3 rounded-full text-white font-semibold" style={{ backgroundColor: "#25D366" }}>
                     Confirm & Send via WhatsApp
                   </button>
                 </div>

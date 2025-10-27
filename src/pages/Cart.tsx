@@ -1,11 +1,11 @@
-import { useMemo, useState } from "react";
+import  { useMemo, useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { useCartStore } from "../store/cartStore";
 import { formatINR } from "../lib/currency";
-import { Trash2, CreditCard, Smartphone, X, ArrowLeft } from "lucide-react";
+import { Trash2, CreditCard, Smartphone, X, ArrowLeft, Check } from "lucide-react";
 import { toast } from "react-hot-toast";
-import { getDishImage } from "../utils/getDishImage"; // ✅ added import
+import { getDishImage } from "../utils/getDishImage";
 
 type Coupon = {
   id: string;
@@ -14,9 +14,10 @@ type Coupon = {
   value: number;
   minSubtotal?: number;
   desc?: string;
+  maxCap?: number; // optional cap for percent coupons
 };
 
-export default function CartPage() {
+export default function CartPage(): JSX.Element {
   const items = useCartStore((s) => s.items);
   const updateQty = useCartStore((s) => s.updateQty);
   const remove = useCartStore((s) => s.remove);
@@ -25,30 +26,49 @@ export default function CartPage() {
 
   const navigate = useNavigate();
 
-  const DELIVERY_FEE = subtotal > 0 ? 20 : 0;
+  // Delivery / offers configuration
+  const FREE_DELIVERY_THRESHOLD = 300;
+  const BASE_DELIVERY_FEE = 20;
+
   const [showModal, setShowModal] = useState(false);
   const [couponInput, setCouponInput] = useState("");
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
 
   const coupons: Coupon[] = [
-    { id: "SAVE20", label: "SAVE20", type: "percent", value: 20, desc: "20% off sitewide" },
+    { id: "SAVE20", label: "SAVE20", type: "percent", value: 20, desc: "20% off sitewide", maxCap: 200 },
     { id: "UPI50", label: "UPI50", type: "flat", value: 50, minSubtotal: 200, desc: "₹50 off on UPI payments over ₹200" },
-    { id: "WELCOME10", label: "WELCOME10", type: "percent", value: 10, desc: "10% off for first order (max ₹100)" },
+    { id: "WELCOME10", label: "WELCOME10", type: "percent", value: 10, desc: "10% off for first order (max ₹100)", maxCap: 100 },
   ];
 
+  // Calculate discount safely
   const calcDiscount = (coupon: Coupon | null, base: number): number => {
     if (!coupon) return 0;
     if (coupon.minSubtotal && base < coupon.minSubtotal) return 0;
     if (coupon.type === "percent") {
-      return Math.round((base * coupon.value) / 100);
+      const raw = Math.round((base * coupon.value) / 100);
+      if (coupon.maxCap) return Math.min(raw, coupon.maxCap);
+      return raw;
     }
     return coupon.value;
   };
 
   const discountAmount = useMemo(() => calcDiscount(appliedCoupon, subtotal), [appliedCoupon, subtotal]);
   const discountedSubtotal = Math.max(0, subtotal - discountAmount);
-  const delivery = discountedSubtotal > 0 ? DELIVERY_FEE : 0;
+  const delivery = discountedSubtotal > 0 && discountedSubtotal < FREE_DELIVERY_THRESHOLD ? BASE_DELIVERY_FEE : 0;
   const total = discountedSubtotal + delivery;
+
+  // Auto-suggest coupon when thresholds met (non-intrusive)
+  const [suggestedCoupon, setSuggestedCoupon] = useState<Coupon | null>(null);
+  useEffect(() => {
+    // Suggest UPI50 when subtotal >= 200 and not applied
+    const upi = coupons.find((c) => c.label === "UPI50");
+    if (upi && subtotal >= (upi.minSubtotal ?? 0) && (!appliedCoupon || appliedCoupon.id !== upi.id)) {
+      setSuggestedCoupon(upi);
+    } else {
+      setSuggestedCoupon(null);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subtotal, appliedCoupon]);
 
   const handleApplyCoupon = (): void => {
     const code = couponInput.trim().toUpperCase();
@@ -70,27 +90,29 @@ export default function CartPage() {
     toast.success(`Coupon ${found.label} applied — saved ${formatINR(calcDiscount(found, subtotal))}`);
   };
 
+  const applySuggested = (c: Coupon) => {
+    setAppliedCoupon(c);
+    toast.success(`${c.label} applied — saved ${formatINR(calcDiscount(c, subtotal))}`);
+  };
+
   const handleRemove = (id: string): void => {
     const removedItem = items.find((i) => i.dish.id === id);
     remove(id);
     if (removedItem) {
-      toast(
-        (t) => (
-          <div className="flex items-center justify-between gap-4">
-            <span>{removedItem.dish.name} removed</span>
-            <button
-              className="text-amber-500 font-medium"
-              onClick={() => {
-                updateQty(id, removedItem.qty);
-                toast.dismiss(t.id);
-              }}
-            >
-              Undo
-            </button>
-          </div>
-        ),
-        { duration: 4000 }
-      );
+      toast((t) => (
+        <div className="flex items-center justify-between gap-4">
+          <span>{removedItem.dish.name} removed</span>
+          <button
+            className="text-amber-500 font-medium"
+            onClick={() => {
+              updateQty(id, removedItem.qty);
+              toast.dismiss(t.id);
+            }}
+          >
+            Undo
+          </button>
+        </div>
+      ), { duration: 4000 });
     }
   };
 
@@ -112,8 +134,11 @@ export default function CartPage() {
     toast.success("Cart cleared");
   };
 
+  // Free delivery progress percentage (for visual encouragement)
+  const freeDeliveryProgress = Math.min(100, Math.round((Math.min(subtotal, FREE_DELIVERY_THRESHOLD) / FREE_DELIVERY_THRESHOLD) * 100));
+
   return (
-    <div className="min-h-screen bg-gray-50 py-10 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 md:px-8 lg:px-16 flex justify-center">
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-sm p-6 md:p-10">
         {/* Header */}
         <div className="flex items-center justify-between gap-4 mb-6">
@@ -135,13 +160,15 @@ export default function CartPage() {
             {items.length === 0 ? (
               <div className="border rounded-xl p-8 text-center text-gray-600">
                 Your cart is empty — add some delicious tiffins!
+                <div className="mt-4">
+                  <Link to="/menu" className="inline-block px-4 py-2 bg-amber-500 text-white rounded-lg">Browse Menu</Link>
+                </div>
               </div>
             ) : (
               <div className="space-y-4">
                 {items.map((item) => {
-                  const localImage = getDishImage(item.dish.name); // ✅ use helper
-                  const imageSrc =
-                    localImage || `https://source.unsplash.com/100x100/?${encodeURIComponent(item.dish.name + ",food")}`;
+                  const localImage = getDishImage(item.dish.name);
+                  const imageSrc = localImage || `https://source.unsplash.com/200x200/?${encodeURIComponent(item.dish.name + ",food")}`;
 
                   return (
                     <motion.div
@@ -150,28 +177,27 @@ export default function CartPage() {
                       initial={{ opacity: 0, y: 6 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 6 }}
-                      className="border rounded-xl p-4 md:p-5 flex items-center justify-between gap-4 hover:shadow-md transition"
+                      className="border rounded-xl p-4 md:p-5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 hover:shadow-md transition"
                     >
-                      <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-4 w-full md:w-auto">
                         <img
                           src={imageSrc}
                           alt={item.dish.name}
-                          className="w-20 h-20 rounded-lg object-cover"
+                          className="w-20 h-20 rounded-lg object-cover flex-shrink-0"
                         />
-                        <div>
-                          <h4 className="font-semibold text-gray-800">{item.dish.name}</h4>
+                        <div className="min-w-0">
+                          <h4 className="font-semibold text-gray-800 truncate">{item.dish.name}</h4>
                           <p className="text-sm text-gray-500">{formatINR(item.dish.price)} each</p>
-                          <p className="text-sm text-gray-500 mt-1">
-                            Subtotal: {formatINR(item.dish.price * item.qty)}
-                          </p>
+                          <p className="text-sm text-gray-500 mt-1">Subtotal: {formatINR(item.dish.price * item.qty)}</p>
                         </div>
                       </div>
 
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
                         <div className="flex items-center border rounded-md overflow-hidden">
                           <button
                             className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
                             onClick={() => handleQtyChange(item.dish.id, item.qty - 1)}
+                            aria-label={`Decrease quantity of ${item.dish.name}`}
                           >
                             -
                           </button>
@@ -179,6 +205,7 @@ export default function CartPage() {
                           <button
                             className="w-9 h-9 flex items-center justify-center text-lg hover:bg-gray-100"
                             onClick={() => handleQtyChange(item.dish.id, item.qty + 1)}
+                            aria-label={`Increase quantity of ${item.dish.name}`}
                           >
                             +
                           </button>
@@ -199,8 +226,11 @@ export default function CartPage() {
                 {/* Offers */}
                 <div className="border rounded-xl p-5 bg-white">
                   <h3 className="text-lg font-semibold text-gray-800 mb-3">Available Offers</h3>
-                  <div className="grid gap-3">
-                    <div className="flex items-center gap-3 bg-amber-50 rounded-lg p-3">
+                  <div className="grid gap-3 md:grid-cols-2">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="flex items-center gap-3 bg-amber-50 rounded-lg p-3"
+                    >
                       <div className="p-2 rounded-full bg-amber-500 text-white">
                         <CreditCard size={16} />
                       </div>
@@ -208,9 +238,9 @@ export default function CartPage() {
                         <div className="text-sm font-medium">Bank Offer</div>
                         <div className="text-xs text-gray-600">10% off with XYZ Bank Credit Card</div>
                       </div>
-                    </div>
+                    </motion.div>
 
-                    <div className="flex items-center gap-3 bg-gray-50 rounded-lg p-3">
+                    <motion.div whileHover={{ scale: 1.02 }} className="flex items-center gap-3 bg-gray-50 rounded-lg p-3">
                       <div className="p-2 rounded-full bg-amber-400 text-white">
                         <Smartphone size={16} />
                       </div>
@@ -218,7 +248,7 @@ export default function CartPage() {
                         <div className="text-sm font-medium">UPI Offer</div>
                         <div className="text-xs text-gray-600">₹50 cashback on UPI payments above ₹200</div>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
 
@@ -227,7 +257,9 @@ export default function CartPage() {
                   <div className="flex items-center justify-between">
                     <h4 className="font-medium text-gray-800">Have a coupon?</h4>
                     {appliedCoupon ? (
-                      <div className="text-sm text-amber-600 font-medium">{appliedCoupon.label} applied</div>
+                      <div className="text-sm text-amber-600 font-medium flex items-center gap-2">
+                        <Check size={14} /> {appliedCoupon.label} applied
+                      </div>
                     ) : (
                       <div className="text-sm text-gray-500">Apply code at checkout</div>
                     )}
@@ -242,7 +274,7 @@ export default function CartPage() {
                     />
                     <button
                       onClick={handleApplyCoupon}
-                      className="px-4 py-2 rounded-lg bg-amber-500 text-white font-medium hover:bg-amber-600 transition disabled:opacity-60"
+                      className="px-4 py-2 rounded-full bg-orange-500 text-white font-medium hover:bg-amber-600 transition disabled:opacity-60"
                       disabled={!items.length}
                     >
                       Apply
@@ -260,6 +292,15 @@ export default function CartPage() {
                     )}
                   </div>
 
+                  {suggestedCoupon && (
+                    <div className="text-sm text-amber-700 flex items-center justify-between">
+                      <div>
+                        Try {suggestedCoupon.label} — {suggestedCoupon.desc}
+                      </div>
+                      <button onClick={() => applySuggested(suggestedCoupon)} className="underline text-amber-600">Apply</button>
+                    </div>
+                  )}
+
                   {appliedCoupon && (
                     <div className="text-sm text-green-700">
                       {appliedCoupon.desc} — discount {formatINR(discountAmount)}
@@ -271,7 +312,7 @@ export default function CartPage() {
           </div>
 
           {/* RIGHT - Order Summary */}
-          <aside className="bg-gray-50 border rounded-xl p-6 sticky top-6 h-fit">
+          <aside className="bg-gray-50 border rounded-xl p-6 sticky top-6 h-fit hidden md:block">
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold text-gray-800">Order Summary</h3>
               <button
@@ -299,6 +340,16 @@ export default function CartPage() {
                 <span>{formatINR(discountedSubtotal)}</span>
               </div>
 
+              <div className="mt-2">
+                <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                  <span>Free delivery on orders over {formatINR(FREE_DELIVERY_THRESHOLD)}</span>
+                  <span>{freeDeliveryProgress}%</span>
+                </div>
+                <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
+                  <div className="h-2 rounded-full" style={{ width: `${freeDeliveryProgress}%`, background: "linear-gradient(90deg,#f59e0b,#f97316)" }} />
+                </div>
+              </div>
+
               <div className="flex justify-between text-gray-700">
                 <span>Delivery</span>
                 <span>{formatINR(delivery)}</span>
@@ -313,7 +364,7 @@ export default function CartPage() {
             <div className="mt-6 flex flex-col gap-3">
               <button
                 onClick={() => setShowModal(true)}
-                className="w-full text-center px-4 py-3 rounded-lg border border-gray-200 hover:bg-gray-100 transition text-gray-700 font-medium"
+                className="w-full text-center px-4 py-3 rounded-full border border-gray-200 hover:bg-gray-100 transition text-gray-700 font-medium"
                 disabled={items.length === 0}
               >
                 View Cart
@@ -321,17 +372,39 @@ export default function CartPage() {
 
               <button
                 onClick={handleProceedToCheckout}
-                className="w-full text-center px-4 py-3 rounded-lg bg-amber-500 text-white font-semibold transition hover:bg-amber-600 disabled:opacity-60"
+                className="w-full text-center px-4 py-3 rounded-full bg-orange-500 text-white font-semibold transition hover:bg-amber-600 disabled:opacity-60"
                 disabled={items.length === 0}
               >
                 Proceed to Checkout
               </button>
 
-              <Link to="/" className="text-center text-sm text-gray-500 hover:underline">
-                Continue Shopping
-              </Link>
+              <Link to="/" className="text-center text-sm text-gray-500 hover:underline">Continue Shopping</Link>
             </div>
           </aside>
+        </div>
+
+        {/* MOBILE - sticky summary bar */}
+        <div className="md:hidden fixed bottom-4 left-4 right-4 z-40">
+          <div className="bg-white border rounded-2xl p-3 shadow-lg flex items-center justify-between gap-3">
+            <div className="flex flex-col">
+              <div className="text-xs text-gray-500">Total</div>
+              <div className="text-sm font-semibold">{formatINR(total)}</div>
+            </div>
+            <div className="flex-1" />
+            <button
+              onClick={handleProceedToCheckout}
+              className="px-4 py-2 rounded-lg bg-amber-500 text-white font-medium"
+              disabled={items.length === 0}
+            >
+              Checkout
+            </button>
+            <button
+              onClick={() => setShowModal(true)}
+              className="ml-2 px-3 py-2 rounded-lg border text-sm text-gray-700"
+            >
+              View
+            </button>
+          </div>
         </div>
 
         {/* MODAL - Mobile Bottom Sheet */}
@@ -369,9 +442,7 @@ export default function CartPage() {
                     <div key={item.dish.id} className="flex justify-between items-center">
                       <div>
                         <p className="font-medium">{item.dish.name}</p>
-                        <p className="text-sm text-gray-500">
-                          {formatINR(item.dish.price)} × {item.qty}
-                        </p>
+                        <p className="text-sm text-gray-500">{formatINR(item.dish.price)} × {item.qty}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
@@ -425,9 +496,7 @@ export default function CartPage() {
                     >
                       Proceed to Checkout
                     </button>
-                    <Link to="/menu" className="flex-1 py-3 rounded-lg border text-center text-gray-700">
-                      Continue Shopping
-                    </Link>
+                    <Link to="/menu" className="flex-1 py-3 rounded-lg border text-center text-gray-700">Continue Shopping</Link>
                   </div>
                 </div>
               </motion.div>
