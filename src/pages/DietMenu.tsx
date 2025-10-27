@@ -25,7 +25,6 @@ export default function DietMenu() {
   const navigate = useNavigate();
   const categoriesRef = useRef<HTMLDivElement | null>(null);
 
-  // ✅ Always scroll to top on page load
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, []);
@@ -38,7 +37,6 @@ export default function DietMenu() {
     return arr;
   }, []);
 
-  // ✅ Filtered & Sorted Menu
   const filtered = useMemo(() => {
     let list = DIET_MENU.filter(
       (m) =>
@@ -56,7 +54,6 @@ export default function DietMenu() {
     return list;
   }, [searchQuery, maxCalories, sortBy, selectedCategory]);
 
-  // ✅ Animations
   const heroHeading = {
     hidden: { opacity: 0, y: -12 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -124,45 +121,47 @@ export default function DietMenu() {
           </div>
         </div>
 
-        {/* 🧩 Category Section */}
-       <div className="flex flex-wrap justify-center gap-8">
-  {categories.map((cat) => (
-    <motion.div
-      key={cat.name}
-      onClick={() => setSelectedCategory(cat.name)}
-      whileHover={{ scale: 1.07 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: "spring", stiffness: 200, damping: 15 }}
-      className={`cursor-pointer flex flex-col items-center transition-transform transform-gpu ${
-        selectedCategory === cat.name ? "scale-110" : "hover:scale-105"
-      }`}
-    >
-      <div
-        className={`w-36 h-36 rounded-full border-4 transition-all ${
-          selectedCategory === cat.name
-            ? "border-lime-500 shadow-lg"
-            : "border-transparent"
-        }`}
-      >
-        <img
-          src={cat.image}
-          alt={cat.name}
-          className="w-full h-full object-cover rounded-full"
-        />
-      </div>
-      <span className="mt-3 text-gray-700 font-medium text-sm truncate max-w-[80px]">
-        {cat.name}
-      </span>
-    </motion.div>
-  ))}
-</div>
-
+        {/* 🧩 Category Section (Reduced image size) */}
+        <div
+          ref={categoriesRef}
+          className="flex flex-wrap justify-center gap-8 mt-6"
+        >
+          {categories.map((cat) => (
+            <motion.div
+              key={cat.name}
+              onClick={() => setSelectedCategory(cat.name)}
+              whileHover={{ scale: 1.07 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              className={`cursor-pointer flex flex-col items-center transition-transform transform-gpu ${
+                selectedCategory === cat.name ? "scale-110" : "hover:scale-105"
+              }`}
+            >
+              <div
+                className={`w-[88px] h-[88px] md:w-[100px] md:h-[100px] rounded-full border-2 transition-all overflow-hidden ${
+                  selectedCategory === cat.name
+                    ? "border-lime-500 shadow-lg"
+                    : "border-transparent"
+                }`}
+              >
+                <img
+                  src={cat.image}
+                  alt={cat.name}
+                  className="w-22 h-22 object-cover rounded-full"
+                />
+              </div>
+              <span className="mt-3 text-gray-700 font-medium text-sm truncate max-w-[80px]">
+                {cat.name}
+              </span>
+            </motion.div>
+          ))}
+        </div>
 
         {/* 🔍 Filter/Search Bar */}
         <motion.div
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
-          className="sticky top-4 z-20 bg-white/30 backdrop-blur-md border border-lime-200/40 rounded-2xl shadow-md px-4 py-3 flex flex-wrap items-center justify-between gap-4"
+          className="sticky top-4 z-20 bg-white/30 backdrop-blur-md border border-lime-200/40 rounded-2xl shadow-md px-4 py-3 flex flex-wrap items-center justify-between gap-4 mt-10"
         >
           {/* Search */}
           <div className="relative flex-1 min-w-[220px]">

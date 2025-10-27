@@ -29,27 +29,25 @@ const features = [
 
 export default function HeroSection() {
   return (
-    <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
-      {/* 🔸 Continuous Marquee Bar (no white background) */}
-      <div className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 py-3 overflow-hidden border-b border-yellow-500 shadow-md">
-        <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg md:text-base tracking-wide items-center gap-12 text-gray-800">
-          {/* Duplicate content for smooth loop */}
-          {[...Array(2)].map((_, i) => (
-            <div key={i} className="flex items-center gap-12">
-              <span>● No Delivery Charge</span>
-              <span>● Fresh Hot Foods</span>
-              <span>● No Extra Charges</span>
-              <span>● Deliver Within 25 Minutes</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Small yellow fade separator */}
-      <div className="h-5 bg-gradient-to-b from-yellow-300 to-transparent"></div>
-
-      {/* 🔸 Hero Section */}
+    <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent ">
       <div className="relative bg-orange-500 overflow-hidden rounded-t-[20px] text-white">
+        <div className=" py-3 overflow-hidden  bg-yellow-300">
+          <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg md:text-base tracking-wide items-center gap-12 text-gray-800">
+            {[...Array(2)].map((_, i) => (
+              <div key={i} className="flex items-center gap-12">
+                <span>● No Delivery Charge</span>
+                <span>● Fresh Hot Foods</span>
+                <span>● No Extra Charges</span>
+                <span>● Deliver Within 25 Minutes</span>
+                  <span>● No Delivery Charge</span>
+                <span>● Fresh Hot Foods</span>
+                <span>● No Extra Charges</span>
+                <span>● Deliver Within 25 Minutes</span>
+              </div>
+              
+            ))}
+          </div>
+        </div>
         {/* Background images */}
         <div className="absolute inset-0 overflow-hidden">
           <img
