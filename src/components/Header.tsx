@@ -24,10 +24,12 @@ export default function Header() {
   );
 
   const isDiet = loc.pathname === "/diet";
+  const isCartOrCheckout =
+    loc.pathname === "/cart" || loc.pathname === "/checkout";
 
   const headerBg = isDiet
-    ? "bg-gradient-to-r from-lime-600 to-green-500 border-b-4 border-white"
-    : "bg-gradient-to-r from-orange-500 to-red-500 border-b-4 border-white";
+    ? "bg-gradient-to-r from-green-600 to-lime-500"
+    : "bg-gradient-to-r from-orange-500 to-red-500";
 
   const navLinks = [
     { to: "/", label: "Home", icon: <Home size={16} /> },
@@ -39,18 +41,17 @@ export default function Header() {
   return (
     <>
       <header
-        className={`${headerBg} backdrop-blur-md sticky top-0 z-50 rounded-b-[20px] shadow-lg transition-all duration-500`}
+        className={`${headerBg} sticky top-0 z-50 backdrop-blur-md  border-white/30 shadow-md border-b-6 rounded-b-[20px] mb-1`}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
-          {/* Logo */}
+        <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between  ">
+          {/* 🌮 Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <h1 className="text-4xl font-extrabold luckiest-guy-regular text-white">
-              Tiffin<span className="text-white">.</span>
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">
+              <span className="text-white">Tiffin</span>
             </h1>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-3 text-gray-100">
+          <nav className="hidden md:flex items-center gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -58,7 +59,7 @@ export default function Header() {
                 className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
                   loc.pathname === link.to
                     ? "bg-white text-orange-600 font-semibold"
-                    : "hover:bg-white/20 hover:text-white"
+                    : "text-white/90 hover:bg-white/20 hover:text-white"
                 }`}
               >
                 {link.icon}
@@ -67,15 +68,12 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right Section */}
           <div className="flex items-center gap-3">
-            {/* Redesigned Toggle Switch (Meal / Diet) */}
             <motion.button
               onClick={toggleDiet}
               whileTap={{ scale: 0.95 }}
-              className="relative flex items-center gap-3"
+              className="relative flex items-center gap-2"
             >
-              {/* Left label */}
               <span
                 className={`text-sm font-semibold ${
                   !isDiet ? "text-white" : "text-white/60"
@@ -84,38 +82,22 @@ export default function Header() {
                 Meal
               </span>
 
-              {/* Toggle Track */}
               <div
-                className={`relative w-16 h-8 rounded-full overflow-hidden flex items-center transition-colors duration-500 ${
+                className={`relative w-16 h-8 rounded-full transition-colors duration-500 flex items-center ${
                   isDiet ? "bg-blue-600" : "bg-orange-400"
                 }`}
               >
-                {/* Optional sparkles (small dots) */}
-                {!isDiet && (
-                  <>
-                    <span className="absolute left-2 top-2 w-1 h-1 bg-white rounded-full opacity-80"></span>
-                    <span className="absolute left-4 top-4 w-1 h-1 bg-white rounded-full opacity-70"></span>
-                  </>
-                )}
-                {isDiet && (
-                  <>
-                    <span className="absolute left-3 top-3 w-1 h-1 bg-white rounded-full opacity-70"></span>
-                    <span className="absolute right-3 bottom-2 w-1 h-1 bg-white rounded-full opacity-80"></span>
-                  </>
-                )}
-
-                {/* Sliding Circle */}
                 <motion.div
                   animate={{
                     x: isDiet ? 32 : 0,
-                    backgroundColor: isDiet ? "#FFF3C4" : "#fff",
+                    backgroundColor: isDiet ? "#F9F9F9" : "#fff",
                   }}
                   transition={{
                     type: "spring",
                     stiffness: 300,
                     damping: 20,
                   }}
-                  className="w-7 h-7 rounded-full shadow-md flex items-center justify-center relative z-10"
+                  className="w-7 h-7 rounded-full shadow-md flex items-center justify-center"
                 >
                   {isDiet ? (
                     <Leaf size={16} className="text-green-600" />
@@ -125,7 +107,6 @@ export default function Header() {
                 </motion.div>
               </div>
 
-              {/* Right label */}
               <span
                 className={`text-sm font-semibold ${
                   isDiet ? "text-white" : "text-white/60"
@@ -135,10 +116,10 @@ export default function Header() {
               </span>
             </motion.button>
 
-            {/* Cart Icon */}
+            {/* 🛒 Cart Icon */}
             <Link
               to="/cart"
-              className="relative group bg-white p-3 rounded-full shadow-md hover:shadow-lg hover:bg-gray-100 transition-all duration-300"
+              className="relative bg-white p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 group"
             >
               <ShoppingCart
                 size={22}
@@ -151,17 +132,15 @@ export default function Header() {
               )}
             </Link>
 
-            {/* CTA Button */}
+            {/* 🪄 CTA Button */}
             <Link to="/auth">
-              <button className="hidden md:flex items-center gap-2 bg-black hover:bg-lime-400 hover:text-black text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
+              <button className="hidden md:flex items-center gap-2 bg-black hover:bg-lime-400 hover:text-black text-white font-semibold px-5 py-2 rounded-full transition-all duration-300">
                 Open Account
-                <div className="w-6 h-6 bg-black text-white flex items-center justify-center rounded-full">
-                  <ArrowUpRight size={14} />
-                </div>
+                <ArrowUpRight size={14} />
               </button>
             </Link>
 
-            {/* Mobile Menu Toggle */}
+            {/* 📱 Mobile Menu Toggle */}
             <button
               className="md:hidden bg-white/20 p-2 rounded-full border border-white/40 text-white"
               onClick={() => setOpen(!open)}
@@ -171,57 +150,64 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {open && (
-          <div className="md:hidden bg-white border-t border-gray-100 shadow-sm animate-slideDown">
-            <nav className="flex flex-col p-4 space-y-2">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setOpen(false)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                    loc.pathname === link.to
-                      ? "bg-gray-100 text-gray-900 font-semibold"
-                      : "hover:bg-gray-50"
+        {/* 📱 Mobile Menu */}
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.25 }}
+              className="md:hidden bg-white border-t border-gray-100 shadow-sm"
+            >
+              <nav className="flex flex-col p-4 space-y-2">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    onClick={() => setOpen(false)}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                      loc.pathname === link.to
+                        ? "bg-gray-100 text-gray-900 font-semibold"
+                        : "hover:bg-gray-50 text-gray-700"
+                    }`}
+                  >
+                    {link.icon}
+                    {link.label}
+                  </Link>
+                ))}
+
+                {/* Diet Toggle in Mobile */}
+                <button
+                  onClick={() => {
+                    toggleDiet();
+                    setOpen(false);
+                  }}
+                  className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-full text-white font-semibold ${
+                    isDiet
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-orange-600 hover:bg-orange-700"
                   }`}
                 >
-                  {link.icon}
-                  {link.label}
-                </Link>
-              ))}
-
-              {/* Toggle in Mobile Menu */}
-              <button
-                onClick={() => {
-                  toggleDiet();
-                  setOpen(false);
-                }}
-                className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-full text-white font-semibold ${
-                  isDiet
-                    ? "bg-green-600 hover:bg-green-700"
-                    : "bg-orange-600 hover:bg-orange-700"
-                }`}
-              >
-                {isDiet ? <Flame size={18} /> : <Leaf size={18} />}
-              </button>
-
-              <Link to="/auth" onClick={() => setOpen(false)}>
-                <button className="w-full flex items-center justify-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">
-                  Open Account
-                  <div className="w-6 h-6 bg-white/20 flex items-center justify-center rounded-full">
-                    <ArrowUpRight size={14} />
-                  </div>
+                  {isDiet ? <Flame size={18} /> : <Leaf size={18} />}
+                  {isDiet ? "Switch to Meal" : "Switch to Diet"}
                 </button>
-              </Link>
-            </nav>
-          </div>
-        )}
+
+                <Link to="/auth" onClick={() => setOpen(false)}>
+                  <button className="w-full flex items-center justify-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all duration-300">
+                    Open Account
+                    <ArrowUpRight size={14} />
+                  </button>
+                </Link>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      {/* Floating Sticky Cart - Mobile */}
+      {/* 🧡 Floating Cart Button (only on non-cart pages) */}
       <AnimatePresence>
-        {count > 0 && (
+        {!isCartOrCheckout && count > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}

@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
 import heroPlate from "../assets/img/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png";
@@ -52,7 +52,6 @@ export default function HeroSection() {
 
   return (
     <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
-      {/* 🔸 Hero Main Background */}
       <div
         className={`relative bg-gradient-to-r ${heroGradient} text-white rounded-t-[20px] overflow-hidden`}
       >
@@ -73,22 +72,21 @@ export default function HeroSection() {
         {/* 🔹 Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">
-            Healthy<span className="text-blue-100">.</span>{" "}
-            Fresh<span className="text-green-100">.</span>{" "}
-            Affordable<span className="text-yellow-200">.</span>
+            Healthy<span className="text-blue-100">.</span> Fresh
+            <span className="text-green-100">.</span> Affordable
+            <span className="text-yellow-200">.</span>
           </h1>
 
-          <p className="text-base md:text-lg text-orange-50 max-w-2xl leading-relaxed">
+          {/* <p className="text-base md:text-lg text-orange-50 max-w-2xl leading-relaxed">
             Discover the taste of home with every bite — meals made with love,
             delivered fast, and priced just right.
-          </p>
+          </p> */}
 
-          <button className="mt-4 flex items-center gap-2 bg-white text-orange-600 font-semibold px-6 py-3 rounded-full shadow-md hover:scale-105 transition-all">
-           <Link to='/menu'>Explore Menu ⪼</Link> 
-          </button>
+          {/* <button className="mt-4 flex items-center gap-2 bg-white text-orange-600 font-semibold px-6 py-3 rounded-full shadow-md hover:scale-105 transition-all">
+            <Link to="/menu">Explore Menu ⪼</Link>
+          </button> */}
         </div>
 
-        {/* 🔶 Marquee Banner Inside Hero */}
         <div className="relative bg-yellow-300 bg-opacity-90 border-t border-yellow-400 py-3 overflow-hidden">
           <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg tracking-wide items-center gap-12 text-gray-800">
             {[...Array(2)].map((_, i) => (
@@ -137,7 +135,9 @@ export default function HeroSection() {
                 <div className="flex flex-col items-start gap-2">
                   <span
                     className={`text-[11px] font-semibold ${
-                      isDiet ? "text-green-600 bg-green-100" : "text-orange-600 bg-orange-100"
+                      isDiet
+                        ? "text-green-600 bg-green-100"
+                        : "text-orange-600 bg-orange-100"
                     } rounded-full px-3 py-1 shadow-sm`}
                   >
                     {f.tag}
