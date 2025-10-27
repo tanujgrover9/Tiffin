@@ -1,4 +1,6 @@
 import { ArrowRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
 import heroPlate from "../assets/img/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png";
 
@@ -28,91 +30,137 @@ const features = [
 ];
 
 export default function HeroSection() {
+  const loc = useLocation();
+  const isDiet = loc.pathname === "/diet";
+
+  // Dynamic gradient based on route
+  const heroGradient = isDiet
+    ? "from-lime-600 to-green-500"
+    : "from-orange-500 to-amber-400";
+
+  const cardGradientText = isDiet
+    ? "from-lime-600 to-green-500"
+    : "from-orange-600 to-amber-500";
+
+  const cardGradientBorder = isDiet
+    ? "from-lime-400/10 to-green-200/20"
+    : "from-orange-400/10 to-amber-200/20";
+
+  const cardButtonGradient = isDiet
+    ? "from-lime-600 to-green-500 hover:from-lime-700 hover:to-green-600"
+    : "from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600";
+
   return (
-    <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent ">
-      <div className="relative bg-orange-500 overflow-hidden rounded-t-[20px] text-white">
-        <div className=" py-3 overflow-hidden  bg-yellow-300">
-          <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg md:text-base tracking-wide items-center gap-12 text-gray-800">
+    <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
+      {/* 🔸 Hero Main Background */}
+      <div
+        className={`relative bg-gradient-to-r ${heroGradient} text-white rounded-t-[20px] overflow-hidden`}
+      >
+        {/* Background Decorations */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={heroPlate}
+            alt="Plate"
+            className="absolute left-[-0px] top-[10%] w-40 md:w-96 opacity-40 md:opacity-90 object-contain float"
+          />
+          <img
+            src={heroVeg}
+            alt="Veggies"
+            className="absolute right-[-40px] bottom-[10%] w-40 md:w-96 opacity-40 md:opacity-90 object-contain float"
+          />
+        </div>
+
+        {/* 🔹 Hero Content */}
+        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 space-y-6">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">
+            Healthy<span className="text-blue-100">.</span>{" "}
+            Fresh<span className="text-green-100">.</span>{" "}
+            Affordable<span className="text-yellow-200">.</span>
+          </h1>
+
+          <p className="text-base md:text-lg text-orange-50 max-w-2xl leading-relaxed">
+            Discover the taste of home with every bite — meals made with love,
+            delivered fast, and priced just right.
+          </p>
+
+          <button className="mt-4 flex items-center gap-2 bg-white text-orange-600 font-semibold px-6 py-3 rounded-full shadow-md hover:scale-105 transition-all">
+           <Link to='/menu'>Explore Menu ⪼</Link> 
+          </button>
+        </div>
+
+        {/* 🔶 Marquee Banner Inside Hero */}
+        <div className="relative bg-yellow-300 bg-opacity-90 border-t border-yellow-400 py-3 overflow-hidden">
+          <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg tracking-wide items-center gap-12 text-gray-800">
             {[...Array(2)].map((_, i) => (
               <div key={i} className="flex items-center gap-12">
                 <span>● No Delivery Charge</span>
                 <span>● Fresh Hot Foods</span>
                 <span>● No Extra Charges</span>
                 <span>● Deliver Within 25 Minutes</span>
-                  <span>● No Delivery Charge</span>
+                <span>● No Delivery Charge</span>
                 <span>● Fresh Hot Foods</span>
                 <span>● No Extra Charges</span>
                 <span>● Deliver Within 25 Minutes</span>
-              </div>
-              
-            ))}
-          </div>
-        </div>
-        {/* Background images */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img
-            src={heroPlate}
-            alt="Plate"
-            className="absolute left-[-40px] top-[10%] w-40 opacity-30 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
-          />
-          <img
-            src={heroVeg}
-            alt="Veggies"
-            className="absolute right-[-40px] top-[40%] w-40 opacity-30 md:opacity-100 md:w-96 md:-translate-y-1/2 object-contain float"
-          />
-        </div>
-
-        {/* Main content */}
-        <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-10 md:py-5 space-y-8">
-          {/* <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight drop-shadow-sm luckiest-guy-regular">
-            Healthy<span className="text-blue-600">.</span> Fresh<span className="text-green-400">.</span> Affordable<span className="text-yellow-400">.</span>
-          </h1>
-          <p className="text-lg md:text-xl text-orange-50 max-w-2xl leading-relaxed">
-            Discover the taste of home with every bite — meals made with love,
-            delivered fast, and priced just right.
-          </p> */}
-
-          {/* Feature Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center w-full max-w-6xl mt-10">
-            {features.map((f, i) => (
-              <div
-                key={i}
-                className="relative bg-white text-gray-800 rounded-3xl border border-gray-100 shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all w-[90%] sm:w-72 md:w-80 h-[280px] md:h-[300px] mx-auto flex flex-col justify-between p-6"
-              >
-                {/* Text Section */}
-                <div className="flex flex-col items-start space-y-3">
-                  <h3 className="text-4xl md:text-4xl font-extrabold luckiest-guy-regular">
-                    {f.title}
-                  </h3>
-                  <p className="text-sm md:text-base text-gray-600 leading-snug">
-                    {f.desc}
-                  </p>
-                </div>
-
-                {/* Bottom Section */}
-                <div className="flex items-end justify-between mt-auto pt-4">
-                  <div className="flex flex-col items-start gap-2">
-                    <span className="text-[11px] font-semibold text-orange-600 bg-orange-100 rounded-full px-3 py-1 shadow-sm">
-                      {f.tag}
-                    </span>
-                    <button className="flex items-center gap-1 text-[12px] font-medium text-white bg-orange-500 hover:bg-orange-600 px-3 py-1.5 rounded-full transition">
-                      Explore <ArrowRight size={14} />
-                    </button>
-                  </div>
-
-                  <img
-                    src={f.img}
-                    alt={f.title}
-                    className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-md"
-                  />
-                </div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      {/* 🔸 Animations */}
+      {/* 🔸 Feature Cards Section */}
+      <div className="relative bg-gradient-to-b from-amber-50 to-white py-16 px-6 md:px-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-center w-full max-w-6xl mx-auto">
+          {features.map((f, i) => (
+            <div
+              key={i}
+              className="relative bg-white/80 backdrop-blur-md text-gray-800 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col justify-between overflow-hidden"
+            >
+              {/* Subtle Gradient Border Glow */}
+              <div
+                className={`absolute inset-0 rounded-3xl bg-gradient-to-tr ${cardGradientBorder} pointer-events-none`}
+              ></div>
+
+              {/* Text Section */}
+              <div className="flex flex-col items-start space-y-3 relative z-10">
+                <h3
+                  className={`text-3xl md:text-4xl font-extrabold bg-gradient-to-r ${cardGradientText} bg-clip-text text-transparent`}
+                >
+                  {f.title}
+                </h3>
+                <p className="text-sm md:text-base text-gray-600 leading-snug">
+                  {f.desc}
+                </p>
+              </div>
+
+              {/* Bottom Section */}
+              <div className="flex items-end justify-between mt-auto pt-4 relative z-10">
+                <div className="flex flex-col items-start gap-2">
+                  <span
+                    className={`text-[11px] font-semibold ${
+                      isDiet ? "text-green-600 bg-green-100" : "text-orange-600 bg-orange-100"
+                    } rounded-full px-3 py-1 shadow-sm`}
+                  >
+                    {f.tag}
+                  </span>
+                  <button
+                    className={`flex items-center gap-1 text-[12px] font-medium text-white bg-gradient-to-r ${cardButtonGradient} px-3 py-1.5 rounded-full shadow-md transition-all`}
+                  >
+                    Explore <ArrowRight size={14} />
+                  </button>
+                </div>
+
+                <img
+                  src={f.img}
+                  alt={f.title}
+                  className="w-24 h-24 md:w-28 md:h-28 object-contain drop-shadow-lg"
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* 🔹 Custom Animations */}
       <style>
         {`
           @keyframes marquee {

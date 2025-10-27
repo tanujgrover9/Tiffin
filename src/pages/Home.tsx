@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import AboutUs from "../components/AboutUs";
 import Menu from "./Menu";
 import HeroSection from "../components/Hero";
-import MealCategories from "../components/MealCategories";
+// import MealCategories from "../components/MealCategories";
 
 import dish1 from "../../src/assets/projects/Best-Kadai-Paneer-Recipe.jpg";
 import dish2 from "../../src/assets/projects/Restaurant-Style-Dal-Makhani.jpg";
@@ -48,7 +48,7 @@ export default function Home() {
   return (
     <div className="min-h-screen relative">
       <HeroSection />
-      <MealCategories />
+      {/* <MealCategories /> */}
       <Menu />
 
       {/* Popular Dishes */}

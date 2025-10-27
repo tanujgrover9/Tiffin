@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ShoppingCart,
   Home,
@@ -8,33 +8,38 @@ import {
   Menu,
   X,
   ClipboardList,
+  Leaf,
+  Flame,
 } from "lucide-react";
 import { useCartStore } from "../store/cartStore";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const loc = useLocation();
+
   const count = useCartStore((s: { items: any[] }) =>
     s.items.reduce((a: any, b: { qty: any }) => a + b.qty, 0)
   );
-  const loc = useLocation();
 
-  // Conditional header color
-  const headerBg =
-    loc.pathname === "/diet"
-      ? "bg-lime-600 border-b-4 border-white"
-      : "bg-orange-500 border-b-4 border-white";
+  const isDiet = loc.pathname === "/diet";
+
+  const headerBg = isDiet
+    ? "bg-gradient-to-r from-lime-600 to-green-500 border-b-4 border-white"
+    : "bg-gradient-to-r from-orange-500 to-red-500 border-b-4 border-white";
 
   const navLinks = [
     { to: "/", label: "Home", icon: <Home size={16} /> },
     { to: "/orders", label: "Orders", icon: <ClipboardList size={16} /> },
   ];
 
+  const toggleDiet = () => navigate(isDiet ? "/" : "/diet");
+
   return (
     <>
-      {/* Header */}
       <header
-        className={`${headerBg} backdrop-blur-md sticky top-0 z-50 rounded-b-[20px] shadow-md transition-colors duration-500`}
+        className={`${headerBg} backdrop-blur-md sticky top-0 z-50 rounded-b-[20px] shadow-lg transition-all duration-500`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           {/* Logo */}
@@ -64,6 +69,72 @@ export default function Header() {
 
           {/* Right Section */}
           <div className="flex items-center gap-3">
+            {/* Redesigned Toggle Switch (Meal / Diet) */}
+            <motion.button
+              onClick={toggleDiet}
+              whileTap={{ scale: 0.95 }}
+              className="relative flex items-center gap-3"
+            >
+              {/* Left label */}
+              <span
+                className={`text-sm font-semibold ${
+                  !isDiet ? "text-white" : "text-white/60"
+                }`}
+              >
+                Meal
+              </span>
+
+              {/* Toggle Track */}
+              <div
+                className={`relative w-16 h-8 rounded-full overflow-hidden flex items-center transition-colors duration-500 ${
+                  isDiet ? "bg-blue-600" : "bg-orange-400"
+                }`}
+              >
+                {/* Optional sparkles (small dots) */}
+                {!isDiet && (
+                  <>
+                    <span className="absolute left-2 top-2 w-1 h-1 bg-white rounded-full opacity-80"></span>
+                    <span className="absolute left-4 top-4 w-1 h-1 bg-white rounded-full opacity-70"></span>
+                  </>
+                )}
+                {isDiet && (
+                  <>
+                    <span className="absolute left-3 top-3 w-1 h-1 bg-white rounded-full opacity-70"></span>
+                    <span className="absolute right-3 bottom-2 w-1 h-1 bg-white rounded-full opacity-80"></span>
+                  </>
+                )}
+
+                {/* Sliding Circle */}
+                <motion.div
+                  animate={{
+                    x: isDiet ? 32 : 0,
+                    backgroundColor: isDiet ? "#FFF3C4" : "#fff",
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                  }}
+                  className="w-7 h-7 rounded-full shadow-md flex items-center justify-center relative z-10"
+                >
+                  {isDiet ? (
+                    <Leaf size={16} className="text-green-600" />
+                  ) : (
+                    <Flame size={16} className="text-orange-500" />
+                  )}
+                </motion.div>
+              </div>
+
+              {/* Right label */}
+              <span
+                className={`text-sm font-semibold ${
+                  isDiet ? "text-white" : "text-white/60"
+                }`}
+              >
+                Diet
+              </span>
+            </motion.button>
+
             {/* Cart Icon */}
             <Link
               to="/cart"
@@ -119,6 +190,21 @@ export default function Header() {
                   {link.label}
                 </Link>
               ))}
+
+              {/* Toggle in Mobile Menu */}
+              <button
+                onClick={() => {
+                  toggleDiet();
+                  setOpen(false);
+                }}
+                className={`w-full flex items-center justify-center gap-2 px-5 py-2 rounded-full text-white font-semibold ${
+                  isDiet
+                    ? "bg-green-600 hover:bg-green-700"
+                    : "bg-orange-600 hover:bg-orange-700"
+                }`}
+              >
+                {isDiet ? <Flame size={18} /> : <Leaf size={18} />}
+              </button>
 
               <Link to="/auth" onClick={() => setOpen(false)}>
                 <button className="w-full flex items-center justify-center gap-2 bg-black hover:bg-lime-400 text-white font-semibold px-5 py-2 rounded-full transition-all luckiest-guy-regular">

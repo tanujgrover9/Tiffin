@@ -14,8 +14,9 @@ import "react-multi-carousel/lib/styles.css";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 
-import heroDietImg from "../assets/diet/hero-diet-min.jpg";
+// import heroDietImg from "../assets/diet/hero-diet-min.jpg";
 import All from "../assets/img/WhatsApp Image 2025-10-19 at 17.37.50_d401016b.png";
+import HeroSection from "../components/Hero";
 
 export default function DietMenu() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -54,18 +55,19 @@ export default function DietMenu() {
     return list;
   }, [searchQuery, maxCalories, sortBy, selectedCategory]);
 
-  const heroHeading = {
-    hidden: { opacity: 0, y: -12 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-  };
+  // const heroHeading = {
+  //   hidden: { opacity: 0, y: -12 },
+  //   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  // };
 
-  const subHeading = {
-    hidden: { opacity: 0, y: -6 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
-  };
+  // const subHeading = {
+  //   hidden: { opacity: 0, y: -6 },
+  //   visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: "easeOut" } },
+  // };
 
   return (
     <>
+    <HeroSection/>
       <div className="min-h-screen font-outfit px-4 md:px-10 py-8 bg-gradient-to-b from-lime-400 via-lime-300 to-yellow-100">
         {/* 🔙 Back Button */}
         <button
@@ -76,7 +78,7 @@ export default function DietMenu() {
         </button>
 
         {/* 🥗 Hero Section */}
-        <div className="relative mb-12 rounded-3xl overflow-hidden">
+        {/* <div className="relative mb-12 rounded-3xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-lime-700/60 via-lime-600/40 to-transparent z-10" />
           <img
             src={heroDietImg}
@@ -119,7 +121,7 @@ export default function DietMenu() {
               </button>
             </motion.div>
           </div>
-        </div>
+        </div> */}
 
         {/* 🧩 Category Section (Reduced image size) */}
         <div
