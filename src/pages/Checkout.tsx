@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -49,13 +48,12 @@ export default function Checkout() {
   const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState<CheckoutInput | null>(null);
 
-  const [appliedCoupon, setAppliedCoupon] = useState<
+  const [, setAppliedCoupon] = useState<
     LocationState["appliedCoupon"] | null
   >(state.appliedCoupon || null);
   const [discountAmount, setDiscountAmount] = useState<number>(
     state.discountAmount || 0
   );
-  const [couponInput, setCouponInput] = useState("");
 
   useEffect(() => {
     if (state.appliedCoupon && state.discountAmount) {
@@ -86,67 +84,11 @@ export default function Checkout() {
     };
   }, [showPreview]);
 
-  const coupons = [
-    {
-      id: "SAVE20",
-      label: "SAVE20",
-      type: "percent",
-      value: 20,
-      desc: "20% off sitewide",
-    },
-    {
-      id: "UPI50",
-      label: "UPI50",
-      type: "flat",
-      value: 50,
-      minSubtotal: 200,
-      desc: "₹50 off on UPI payments above ₹200",
-    },
-    {
-      id: "WELCOME10",
-      label: "WELCOME10",
-      type: "percent",
-      value: 10,
-      desc: "10% off for first order (max ₹100)",
-    },
-  ];
+  
 
-  const calcDiscount = (coupon: any, base: number) => {
-    if (!coupon) return 0;
-    if (coupon.minSubtotal && base < coupon.minSubtotal) return 0;
-    if (coupon.type === "percent") {
-      return Math.round((base * coupon.value) / 100);
-    }
-    return coupon.value;
-  };
 
-  const applyCouponOnCheckout = () => {
-    const code = couponInput.trim().toUpperCase();
-    if (!code) {
-      toast.error("Enter coupon code");
-      return;
-    }
-    const found = coupons.find((c) => c.label === code);
-    if (!found) {
-      toast.error("Invalid coupon");
-      return;
-    }
-    if (found.minSubtotal && subtotal < found.minSubtotal) {
-      toast.error(`Requires minimum subtotal of ${formatINR(found.minSubtotal)}`);
-      return;
-    }
-    const disc = calcDiscount(found, subtotal);
-    setAppliedCoupon(found);
-    setDiscountAmount(disc);
-    setCouponInput("");
-    toast.success(`Coupon applied: -${formatINR(disc)}`);
-  };
 
-  const removeCoupon = () => {
-    setAppliedCoupon(null);
-    setDiscountAmount(0);
-    toast.success("Coupon removed");
-  };
+
 
   const discountedSubtotal = Math.max(0, subtotal - (discountAmount || 0));
   const delivery = discountedSubtotal > 0 ? DELIVERY_FEE : 0;
@@ -481,38 +423,7 @@ ${
               <span>{formatINR(total)}</span>
             </div>
 
-            <div className="mt-4">
-              <h4 className="text-sm font-medium mb-2">Apply Coupon</h4>
-              <div className="flex gap-2">
-                <input
-                  value={couponInput}
-                  onChange={(e) => setCouponInput(e.target.value)}
-                  placeholder="Enter coupon code"
-                  className="flex-1 rounded-lg border-gray-300 px-3 py-2 shadow-sm focus:ring-amber-500 focus:border-amber-500"
-                />
-                <button
-                  onClick={applyCouponOnCheckout}
-                  className="px-4 py-2 bg-amber-500 text-white rounded-lg hover:bg-amber-600"
-                >
-                  Apply
-                </button>
-              </div>
-
-              {appliedCoupon && (
-                <div className="mt-3 flex items-center justify-between bg-green-50 text-green-700 px-3 py-2 rounded-lg">
-                  <span>
-                    ✅ {appliedCoupon.label} applied (
-                    {formatINR(discountAmount)} off)
-                  </span>
-                  <button
-                    onClick={removeCoupon}
-                    className="text-sm text-red-600 hover:underline"
-                  >
-                    Remove
-                  </button>
-                </div>
-              )}
-            </div>
+            
           </div>
         </div>
       </div>
