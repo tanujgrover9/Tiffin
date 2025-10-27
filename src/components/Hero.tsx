@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import {  useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
 import heroPlate from "../assets/img/javier-kober-L5wFsLfp0GY-unsplash-min-min (1) (1).png";
@@ -33,7 +33,6 @@ export default function HeroSection() {
   const loc = useLocation();
   const isDiet = loc.pathname === "/diet";
 
-  // Dynamic gradient based on route
   const heroGradient = isDiet
     ? "from-lime-600 to-green-500"
     : "from-orange-500 to-amber-400";
@@ -43,12 +42,16 @@ export default function HeroSection() {
     : "from-orange-600 to-amber-500";
 
   const cardGradientBorder = isDiet
-    ? "from-lime-400/10 to-green-200/20"
-    : "from-orange-400/10 to-amber-200/20";
+    ? "from-lime-400/20 to-green-300/40"
+    : "from-orange-400/20 to-amber-300/40";
 
   const cardButtonGradient = isDiet
     ? "from-lime-600 to-green-500 hover:from-lime-700 hover:to-green-600"
     : "from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600";
+
+  const cardBorderColor = isDiet
+    ? "border-green-400/60 hover:border-green-500/90"
+    : "border-orange-400/60 hover:border-orange-500/90";
 
   return (
     <section className="relative text-gray-900 overflow-hidden rounded-t-[20px] bg-transparent">
@@ -60,33 +63,25 @@ export default function HeroSection() {
           <img
             src={heroPlate}
             alt="Plate"
-            className="absolute left-[-0px] top-[-35%] w-40 md:w-96 opacity-100 md:opacity-100 object-contain float"
+            className="absolute left-[-0px] sm:top-[-35%] top-[10px] w-40 md:w-96 opacity-100 object-contain float"
           />
           <img
             src={heroVeg}
             alt="Veggies"
-            className="absolute right-[-40px] bottom-[10%] w-40 md:w-96 opacity-100 md:opacity-100 object-contain float"
+            className="absolute right-[-40px] bottom-[10%] w-40 md:w-96 opacity-100 object-contain float"
           />
         </div>
 
-        {/* 🔹 Hero Content */}
+        {/* Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">
             Healthy<span className="text-blue-300">.</span> Fresh
             <span className="text-green-400">.</span> Affordable
             <span className="text-yellow-400">.</span>
           </h1>
-
-          {/* <p className="text-base md:text-lg text-orange-50 max-w-2xl leading-relaxed">
-            Discover the taste of home with every bite — meals made with love,
-            delivered fast, and priced just right.
-          </p> */}
-
-          {/* <button className="mt-4 flex items-center gap-2 bg-white text-orange-600 font-semibold px-6 py-3 rounded-full shadow-md hover:scale-105 transition-all">
-            <Link to="/menu">Explore Menu ⪼</Link>
-          </button> */}
         </div>
 
+        {/* Moving Banner */}
         <div className="relative bg-yellow-300 bg-opacity-90 border-t border-yellow-400 py-3 overflow-hidden">
           <div className="flex whitespace-nowrap animate-marquee font-semibold text-lg tracking-wide items-center gap-12 text-gray-800">
             {[...Array(2)].map((_, i) => (
@@ -105,20 +100,20 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 🔸 Feature Cards Section */}
+      {/* Feature Cards Section */}
       <div className="relative bg-gradient-to-b from-amber-50 to-white py-16 px-6 md:px-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 justify-center w-full max-w-6xl mx-auto">
           {features.map((f, i) => (
             <div
               key={i}
-              className="relative bg-white/80 backdrop-blur-md text-gray-800 rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.15)] hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col justify-between overflow-hidden"
+              className={`relative bg-white/80 backdrop-blur-md text-gray-800 rounded-3xl border-2 ${cardBorderColor}
+              shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)]
+              hover:-translate-y-2 transition-all duration-300 p-8 flex flex-col justify-between overflow-hidden`}
             >
-              {/* Subtle Gradient Border Glow */}
               <div
                 className={`absolute inset-0 rounded-3xl bg-gradient-to-tr ${cardGradientBorder} pointer-events-none`}
               ></div>
 
-              {/* Text Section */}
               <div className="flex flex-col items-start space-y-3 relative z-10">
                 <h3
                   className={`text-3xl md:text-4xl font-extrabold bg-gradient-to-r ${cardGradientText} bg-clip-text text-transparent`}
@@ -130,7 +125,6 @@ export default function HeroSection() {
                 </p>
               </div>
 
-              {/* Bottom Section */}
               <div className="flex items-end justify-between mt-auto pt-4 relative z-10">
                 <div className="flex flex-col items-start gap-2">
                   <span
@@ -160,7 +154,7 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* 🔹 Custom Animations */}
+      {/* Animations */}
       <style>
         {`
           @keyframes marquee {
