@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import {  useLocation } from "react-router-dom";
 
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
-import heroPlate from "../assets/img/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png";
+import heroPlate from "../assets/img/javier-kober-L5wFsLfp0GY-unsplash.png";
 
 import imgFresh from "../assets/vectorImg/salad.png";
 import imgFast from "../assets/vectorImg/delivery.png";
@@ -60,21 +60,21 @@ export default function HeroSection() {
           <img
             src={heroPlate}
             alt="Plate"
-            className="absolute left-[-0px] top-[10%] w-40 md:w-96 opacity-40 md:opacity-90 object-contain float"
+            className="absolute left-[-0px] top-[-35%] w-40 md:w-96 opacity-100 md:opacity-100 object-contain float"
           />
           <img
             src={heroVeg}
             alt="Veggies"
-            className="absolute right-[-40px] bottom-[10%] w-40 md:w-96 opacity-40 md:opacity-90 object-contain float"
+            className="absolute right-[-40px] bottom-[10%] w-40 md:w-96 opacity-100 md:opacity-100 object-contain float"
           />
         </div>
 
         {/* 🔹 Hero Content */}
         <div className="relative z-10 flex flex-col items-center text-center px-6 md:px-16 py-20 space-y-6">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-md">
-            Healthy<span className="text-blue-100">.</span> Fresh
-            <span className="text-green-100">.</span> Affordable
-            <span className="text-yellow-200">.</span>
+            Healthy<span className="text-blue-300">.</span> Fresh
+            <span className="text-green-400">.</span> Affordable
+            <span className="text-yellow-400">.</span>
           </h1>
 
           {/* <p className="text-base md:text-lg text-orange-50 max-w-2xl leading-relaxed">
