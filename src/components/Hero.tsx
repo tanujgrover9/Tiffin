@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import {  useLocation } from "react-router-dom";
 
 import heroVeg from "../assets/img/tangerine-newt-q2PMPo8gBBk-unsplash-min-min.png";
-import heroPlate from "../assets/img/javier-kober-L5wFsLfp0GY-unsplash.png";
+import heroPlate from "../assets/img/javier-kober-L5wFsLfp0GY-unsplash-min-min (1) (1).png";
 
 import imgFresh from "../assets/vectorImg/salad.png";
 import imgFast from "../assets/vectorImg/delivery.png";
