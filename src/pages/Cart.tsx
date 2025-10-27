@@ -253,60 +253,75 @@ export default function CartPage(): JSX.Element {
                 </div>
 
                 {/* Coupon Input */}
-                <div className="border rounded-xl p-4 bg-white flex flex-col gap-3">
-                  <div className="flex items-center justify-between">
-                    <h4 className="font-medium text-gray-800">Have a coupon?</h4>
-                    {appliedCoupon ? (
-                      <div className="text-sm text-amber-600 font-medium flex items-center gap-2">
-                        <Check size={14} /> {appliedCoupon.label} applied
-                      </div>
-                    ) : (
-                      <div className="text-sm text-gray-500">Apply code at checkout</div>
-                    )}
-                  </div>
+                {/* Coupon Input Section */}
+<div className="border rounded-xl p-4 bg-white flex flex-col gap-3 shadow-sm">
+  <div className="flex items-center justify-between flex-wrap gap-2">
+    <h4 className="font-medium text-gray-800">Have a coupon?</h4>
+    {appliedCoupon ? (
+      <div className="text-sm text-amber-600 font-medium flex items-center gap-2">
+        <Check size={14} /> {appliedCoupon.label} applied
+      </div>
+    ) : (
+      <div className="text-sm text-gray-500">Apply code at checkout</div>
+    )}
+  </div>
 
-                  <div className="flex gap-2">
-                    <input
-                      value={couponInput}
-                      onChange={(e) => setCouponInput(e.target.value)}
-                      placeholder="Enter coupon code"
-                      className="flex-1 rounded-lg border-gray-300 px-3 py-2 shadow-sm focus:ring-amber-500 focus:border-amber-500"
-                    />
-                    <button
-                      onClick={handleApplyCoupon}
-                      className="px-4 py-2 rounded-full bg-orange-500 text-white font-medium hover:bg-amber-600 transition disabled:opacity-60"
-                      disabled={!items.length}
-                    >
-                      Apply
-                    </button>
-                    {appliedCoupon && (
-                      <button
-                        onClick={() => {
-                          setAppliedCoupon(null);
-                          toast.success("Coupon removed");
-                        }}
-                        className="px-3 py-2 rounded-lg border text-gray-700 hover:bg-gray-50"
-                      >
-                        Remove
-                      </button>
-                    )}
-                  </div>
+  {/* Coupon Bar */}
+  <div className="flex flex-col sm:flex-row gap-2 bg-gray-50 rounded-xl p-2 sm:p-3 border border-gray-200">
+    <input
+      value={couponInput}
+      onChange={(e) => setCouponInput(e.target.value)}
+      placeholder="Enter coupon code"
+      className="flex-1 rounded-lg border-gray-300 bg-white px-3 py-2 shadow-sm focus:ring-amber-500 focus:border-amber-500 w-full text-sm sm:text-base"
+    />
 
-                  {suggestedCoupon && (
-                    <div className="text-sm text-amber-700 flex items-center justify-between">
-                      <div>
-                        Try {suggestedCoupon.label} — {suggestedCoupon.desc}
-                      </div>
-                      <button onClick={() => applySuggested(suggestedCoupon)} className="underline text-amber-600">Apply</button>
-                    </div>
-                  )}
+    <div className="flex w-full sm:w-auto gap-2">
+      <button
+        onClick={handleApplyCoupon}
+        className="flex-1 sm:flex-none px-4 py-2 rounded-full bg-orange-500 text-white font-medium hover:bg-amber-600 active:scale-[0.98] transition disabled:opacity-60"
+        disabled={!items.length}
+      >
+        Apply
+      </button>
 
-                  {appliedCoupon && (
-                    <div className="text-sm text-green-700">
-                      {appliedCoupon.desc} — discount {formatINR(discountAmount)}
-                    </div>
-                  )}
-                </div>
+      {appliedCoupon && (
+        <button
+          onClick={() => {
+            setAppliedCoupon(null);
+            toast.success("Coupon removed");
+          }}
+          className="flex-1 sm:flex-none px-4 py-2 rounded-full border text-gray-700 hover:bg-gray-50 active:scale-[0.98] transition"
+        >
+          Remove
+        </button>
+      )}
+    </div>
+  </div>
+
+  {/* Auto-Suggestion */}
+  {suggestedCoupon && (
+    <div className="text-sm text-amber-700 flex items-center justify-between bg-amber-50 border border-amber-100 rounded-lg px-3 py-2">
+      <div>
+        Try <span className="font-medium">{suggestedCoupon.label}</span> — {suggestedCoupon.desc}
+      </div>
+      <button
+        onClick={() => applySuggested(suggestedCoupon)}
+        className="underline text-amber-600 font-medium hover:text-amber-700"
+      >
+        Apply
+      </button>
+    </div>
+  )}
+
+  {/* Active Coupon Info */}
+  {appliedCoupon && (
+    <div className="text-sm text-green-700 flex items-center gap-1">
+      <Check size={14} />
+      <span>{appliedCoupon.desc} — discount {formatINR(discountAmount)}</span>
+    </div>
+  )}
+</div>
+
               </div>
             )}
           </div>
