@@ -61,7 +61,7 @@ export default function Menu() {
       <div className=" mb-8">
         <h1 className="text-3xl font-bold text-gray-900">
           {/* Explore Our{" "} */}
-          <span className="text-orange-500 luckiest-guy-regular">
+          <span className="text-orange-500 ">
             Delicious Menu
           </span>
         </h1>
