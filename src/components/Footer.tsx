@@ -1,6 +1,9 @@
 import { Facebook, Instagram, Twitter } from "lucide-react";
+<<<<<<< HEAD
 import logo from "../assets/img/logo.png";
 
+=======
+>>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
 
 export default function Footer() {
   return (
@@ -14,11 +17,17 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left gap-10">
           {/* Logo & Description */}
           <div className="space-y-3 md:max-w-xs">
+<<<<<<< HEAD
              <img
               src={logo}
               alt="HomelyBox Logo"
               className="h-20 w-auto object-contain"
             />
+=======
+            <h2 className="text-4xl md:text-5xl font-extrabold text-[#d04a00] tracking-tight  luckiest-guy-regular">
+              Tiffin<span className="text-[#ff7b3f]">Box</span>
+            </h2>
+>>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
             <p className="text-lg font-semibold text-[#ff7b3f] uppercase tracking-wide  luckiest-guy-regular">
               Ghar ka Khana
             </p>

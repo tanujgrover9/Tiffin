@@ -13,7 +13,10 @@ import {
 } from "lucide-react";
 import { useCartStore } from "../store/cartStore";
 import { motion, AnimatePresence } from "framer-motion";
+<<<<<<< HEAD
 import logo from "../assets/img/logo.png";
+=======
+>>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
 
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -45,6 +48,7 @@ export default function Header() {
         className={`${headerBg} sticky top-0 z-50 backdrop-blur-md  border-white/30 shadow-md border-b-6 rounded-b-[20px] mb-1`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between  ">
+<<<<<<< HEAD
           <Link to="/" className="flex items-center gap-2">
            <img
   src={logo}
@@ -54,6 +58,13 @@ className="h-[60px] w-[140px] object-contain invert brightness-0 saturate-0"
 
 
 
+=======
+          {/* 🌮 Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">
+              <span className="text-white">Tiffin</span>
+            </h1>
+>>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
           </Link>
 
           <nav className="hidden md:flex items-center gap-4">
