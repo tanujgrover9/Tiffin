@@ -1,36 +1,30 @@
 import { Facebook, Instagram, Twitter } from "lucide-react";
-<<<<<<< HEAD
 import logo from "../assets/img/logo.png";
-
-=======
->>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
 
 export default function Footer() {
   return (
-    <footer className="relative text-[#1a1a1a] overflow-hidden bg-gradient-to-b from-orange-100 via-orange-200/80 to-orange-50 backdrop-blur-sm border-t border-orange-200/60">
+    <footer className="bricolage-grotesque relative text-[#1a1a1a] overflow-hidden bg-gradient-to-b from-orange-100 via-orange-200/80 to-orange-50 backdrop-blur-sm border-t border-orange-200/60">
       {/* Decorative overlay */}
       <div className="absolute inset-0 bg-gradient-to-tr from-white/40 via-orange-50/60 to-transparent pointer-events-none" />
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 py-16 space-y-12">
+        
         {/* 🔶 Top Row */}
         <div className="flex flex-col md:flex-row justify-between items-center md:items-start text-center md:text-left gap-10">
+          
           {/* Logo & Description */}
           <div className="space-y-3 md:max-w-xs">
-<<<<<<< HEAD
-             <img
+            <img
               src={logo}
               alt="HomelyBox Logo"
               className="h-20 w-auto object-contain"
             />
-=======
-            <h2 className="text-4xl md:text-5xl font-extrabold text-[#d04a00] tracking-tight  luckiest-guy-regular">
-              Tiffin<span className="text-[#ff7b3f]">Box</span>
-            </h2>
->>>>>>> 92d227ddfcfe31c7138fcdf5c3c7e189d70d16f6
-            <p className="text-lg font-semibold text-[#ff7b3f] uppercase tracking-wide  luckiest-guy-regular">
+
+            <p className="text-lg font-semibold text-[#ff7b3f] uppercase tracking-wide ">
               Ghar ka Khana
             </p>
+
             <p className="text-sm text-[#333] leading-relaxed">
               Fresh, nutritious, and home-cooked meals — crafted with love and
               delivered hot every day.
@@ -39,6 +33,7 @@ export default function Footer() {
 
           {/* Navigation Columns */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 text-sm">
+            
             {/* Explore */}
             <div className="flex flex-col gap-2">
               <h3 className="text-[#d04a00] font-bold mb-2 uppercase tracking-wide text-xs">
@@ -86,10 +81,9 @@ export default function Footer() {
               <h3 className="text-[#d04a00] font-bold mb-2 uppercase tracking-wide text-xs">
                 Contact
               </h3>
-              <p className="text-[#333] text-sm">
-                anshumansingh5499@gmail.com
-              </p>
+              <p className="text-[#333] text-sm">anshumansingh5499@gmail.com</p>
               <p className="text-[#333] text-sm">+91 7080216257</p>
+
               <a
                 href="/contact"
                 className="inline-block mt-2 bg-[#ff7b3f] hover:bg-[#ff9b7b] text-white font-semibold px-4 py-1.5 rounded-full text-xs transition shadow-md hover:shadow-lg"
@@ -100,12 +94,16 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 🔸 Divider */}
+        {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-orange-300/60 to-transparent" />
 
-        {/* 🔻 Bottom Section */}
+        {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-5 text-sm text-[#4b4b4b]">
-          <p>© {new Date().getFullYear()} <span className="font-semibold">TiffinBox</span>. All Rights Reserved.</p>
+          <p>
+            © {new Date().getFullYear()}{" "}
+            <span className="font-semibold">TiffinBox</span>. All Rights
+            Reserved.
+          </p>
 
           {/* Social Icons */}
           <div className="flex gap-4">
@@ -121,13 +119,13 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 💬 Tagline */}
+        {/* Tagline */}
         <p className="text-center text-xs text-[#6b4e36] mt-3 italic">
           “A taste of home, wherever you are.”
         </p>
       </div>
 
-      {/* Subtle glow */}
+      {/* Glow */}
       <div className="absolute -bottom-8 left-0 right-0 h-20 bg-gradient-to-t from-orange-200/40 to-transparent blur-2xl" />
     </footer>
   );
