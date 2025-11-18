@@ -62,7 +62,7 @@ export default function HeroSection() {
           <img
             src={heroPlate}
             alt="Plate"
-            className="absolute left-[-50px] sm:top-[-10%] top-[10px] w-40 md:w-96 float object-contain"
+            className="absolute left-[-50px] bottom-[5%]  w-40 md:w-96 float object-contain"
           />
           <img
             src={heroVeg}
