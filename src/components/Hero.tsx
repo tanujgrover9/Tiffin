@@ -28,7 +28,7 @@ export default function HeroSection() {
           <img
             src={heroVeg}
             alt="Veggies"
-            className="absolute right-[-5px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
+            className="absolute right-[5px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
           />
         </div>
 
@@ -38,7 +38,7 @@ export default function HeroSection() {
             <span className="bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent drop-shadow-xl">
               Homely
             </span>
-            <span className="text-green-400 drop-shadow-[0_4px_10px_rgba(0,0,0,0.4)]">
+            <span className="text-green-400 ">
               Box
             </span>
           </h1>
