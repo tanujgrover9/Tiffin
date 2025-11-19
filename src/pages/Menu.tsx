@@ -77,9 +77,7 @@ export default function Menu() {
 
       {/* ------------------------------ CATEGORY FILTER ------------------------------ */}
       <section className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-800 mb-5">
-          Choose Your Favorite Category
-        </h2>
+       
 
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 justify-items-center">
           {categoryItems.map((cat) => (
