@@ -67,9 +67,9 @@ export default function Menu() {
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-10 text-center"
+        className="mb-10 "
       >
-        <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r 
+        <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r 
           from-orange-500 to-amber-600 bg-clip-text text-transparent">
           Our Delicious Menu
         </h1>
