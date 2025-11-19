@@ -40,7 +40,7 @@ export default function HeroSection() {
         </div>
 
         {/* TEXT CONTENT */}
-        <div className="relative z-10 text-center px-6 md:px-16 py-28 md:py-20">
+        <div className="relative z-10 text-center px-6 md:px-16 py-20 md:py-20">
           <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight">
             <span className="bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent drop-shadow-xl">
               Homely
