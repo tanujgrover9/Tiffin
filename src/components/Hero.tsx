@@ -17,7 +17,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden rounded-[20px] text-gray-900">
+    <section className="relative overflow-hidden rounded-t-[20px] text-gray-900">
 
       {/* TOP MARQUEE */}
       <div className="relative bg-yellow-300 bg-opacity-90 border-b border-yellow-400 py-2 overflow-hidden z-20">
@@ -33,7 +33,7 @@ export default function HeroSection() {
       </div>
 
       {/* HERO WRAPPER */}
-      <div className={`relative bg-gradient-to-r ${heroGradient} text-white rounded-t-[20px]`}>
+      <div className={`relative bg-gradient-to-r ${heroGradient} text-white rounded-[20px]`}>
 
         {/* FLOATING IMAGE (reduced size) */}
         {/* FLOATING IMAGE — Responsive Position */}
