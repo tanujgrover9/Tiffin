@@ -108,7 +108,7 @@ export default function HeroSection() {
             <img
               src={heroVeg}
               alt="Homely food tiffin"
-              className="w-24 md:w-64 lg:w-72 object-contain float drop-shadow-[0_14px_28px_rgba(15,23,42,0.18)]"
+              className="w-24 md:w-70 lg:w-80 object-contain float drop-shadow-[0_14px_28px_rgba(15,23,42,0.18)]"
             />
           </div>
         </div>
@@ -309,6 +309,28 @@ export default function HeroSection() {
             </div>
           </div>
         </div>
+
+        {/* 📞 CALL NOW – rotated button on right center */}
+        <a
+          href="tel:+917080216257"
+          className=" md:flex items-center justify-center
+                     absolute top-1/2 -translate-y-1/2 right-[-32px]
+                     origin-center rotate-90"
+        >
+          <button
+            className="
+              px-3 py-2
+              text-xs font-semibold tracking-wide
+               border-orange-300/70
+              bg-red-500 text-white
+             
+              hover:bg-orange-50 hover:-translate-y-0.5
+              transition-all duration-300
+            "
+          >
+            Connect us
+          </button>
+        </a>
       </div>
 
       {/* ANIMATIONS */}
