@@ -40,9 +40,10 @@ export default function Header() {
   return (
     <>
       <header
-        className={`${headerBg} sticky top-0 z-50 backdrop-blur-md border-white/30 shadow-md border-b-6 rounded-b-[25px] mb-1 `}
+        className={`${headerBg} sticky top-0 z-50 backdrop-blur-md border-white/30 shadow-md border-b-6 rounded-b-[25px] mb-1`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
+          {/* LOGO */}
           <Link to="/" className="flex items-center gap-2">
             <img
               src={logo}
@@ -51,94 +52,127 @@ export default function Header() {
             />
           </Link>
 
-          <nav className="hidden md:flex items-center gap-4">
-            {navLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
-                  loc.pathname === link.to
-                    ? "bg-white text-orange-600 font-semibold"
-                    : "text-white/90 hover:bg-white/20 hover:text-white"
-                }`}
-              >
-                {link.icon}
-                {link.label}
-              </Link>
-            ))}
-          </nav>
+          {/* NAV + ACTIONS (RIGHT SIDE) */}
+          <div className="flex items-center gap-3">
+            {/* Desktop Nav */}
+            <nav className="hidden md:flex items-center gap-4">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.to}
+                  to={link.to}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all ${
+                    loc.pathname === link.to
+                      ? "bg-white text-orange-600 font-semibold"
+                      : "text-white/90 hover:bg-white/20 hover:text-white"
+                  }`}
+                >
+                  {link.icon}
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
 
-          {/* ==== Toggle Button Wrapper (unchanged) ==== */}
-          <motion.button
-            onClick={toggleDiet}
-            whileTap={{ scale: 0.95 }}
-            className="relative flex items-center gap-3"
-          >
-            {/* === Inline Doodle Text + Arrow (left side) === */}
-            <div className="flex items-center gap-1">
-              <span className="text-[11px] text-white/90 font-semibold italic whitespace-nowrap">
-               Meal Type
-              </span>
-
-              {/* Hand-drawn Doodle Arrow */}
-              <svg
-                width="22"
-                height="12"
-                viewBox="0 0 22 12"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="opacity-90"
-              >
-                <path
-                  d="M1 6 C7 2, 14 2, 20 6"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M15 2 L20 6 L15 10"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-
-            {/* ===== Toggle Track ===== */}
-            <div
-              className={`
-      relative w-24 h-10 rounded-full flex items-center
-      backdrop-blur-md border border-white/30 shadow-inner
-      transition-all duration-500
-      ${isDiet ? "bg-white/20" : "bg-black/20"}
-    `}
+            {/* Desktop Cart Button */}
+            <Link
+              to="/cart"
+              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all border border-white/20 shadow-sm"
             >
-              {/* Sliding Knob */}
-              <motion.div
-                animate={{
-                  x: isDiet ? 56 : 0,
-                }}
-                transition={{ type: "spring", stiffness: 250, damping: 20 }}
-                className="absolute w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
-              >
-                {isDiet ? (
-                  <Leaf size={18} className="text-green-600" />
-                ) : (
-                  <Flame size={18} className="text-orange-500" />
+              <div className="relative flex items-center justify-center">
+                <ShoppingCart size={18} />
+                {count > 0 && (
+                  <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-white text-[11px] font-semibold flex items-center justify-center text-orange-600 shadow-md">
+                    {count}
+                  </span>
                 )}
-              </motion.div>
+              </div>
+              <span className="text-sm font-medium">Cart</span>
+            </Link>
 
-              {/* Static Icons */}
-              <div className="absolute left-3">
-                <Flame size={16} className="text-white/70" />
+            {/* Mobile Cart Icon */}
+            <Link
+              to="/cart"
+              className="relative flex md:hidden items-center justify-center w-9 h-9 rounded-full bg-white/15 text-white border border-white/30"
+            >
+              <ShoppingCart size={18} />
+              {count > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] px-[3px] rounded-full bg-white text-[10px] font-semibold flex items-center justify-center text-orange-600 shadow-md">
+                  {count}
+                </span>
+              )}
+            </Link>
+
+            {/* ==== Toggle Button Wrapper ==== */}
+            <motion.button
+              onClick={toggleDiet}
+              whileTap={{ scale: 0.95 }}
+              className="relative flex items-center gap-3"
+            >
+              {/* Inline Doodle Text + Arrow (left side) */}
+              <div className="hidden sm:flex items-center gap-1">
+                <span className="text-[11px] text-white/90 font-semibold italic whitespace-nowrap">
+                  Meal Type
+                </span>
+
+                {/* Hand-drawn Doodle Arrow */}
+                <svg
+                  width="22"
+                  height="12"
+                  viewBox="0 0 22 12"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="opacity-90"
+                >
+                  <path
+                    d="M1 6 C7 2, 14 2, 20 6"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M15 2 L20 6 L15 10"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
 
-              <div className="absolute right-3">
-                <Leaf size={16} className="text-white/70" />
+              {/* Toggle Track */}
+              <div
+                className={`
+                  relative w-24 h-10 rounded-full flex items-center
+                  backdrop-blur-md border border-white/30 shadow-inner
+                  transition-all duration-500
+                  ${isDiet ? "bg-white/20" : "bg-black/20"}
+                `}
+              >
+                {/* Sliding Knob */}
+                <motion.div
+                  animate={{
+                    x: isDiet ? 56 : 0,
+                  }}
+                  transition={{ type: "spring", stiffness: 250, damping: 20 }}
+                  className="absolute w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center"
+                >
+                  {isDiet ? (
+                    <Leaf size={18} className="text-green-600" />
+                  ) : (
+                    <Flame size={18} className="text-orange-500" />
+                  )}
+                </motion.div>
+
+                {/* Static Icons */}
+                <div className="absolute left-3">
+                  <Flame size={16} className="text-white/70" />
+                </div>
+
+                <div className="absolute right-3">
+                  <Leaf size={16} className="text-white/70" />
+                </div>
               </div>
-            </div>
-          </motion.button>
+            </motion.button>
+          </div>
         </div>
 
         {/* 📱 Mobile Menu */}
