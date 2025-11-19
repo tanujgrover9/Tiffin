@@ -22,7 +22,6 @@ export default function DishCard({ dish }: { dish: Dish }) {
   const add = useCartStore((s) => s.add);
   const updateQty = useCartStore((s) => s.updateQty);
 
-  // Sync quantity with cart
   const cartItem = cartItems.find((i) => i.dish.id === dish.id);
   const quantity = cartItem ? cartItem.qty : 0;
 
@@ -31,7 +30,7 @@ export default function DishCard({ dish }: { dish: Dish }) {
   const getCategoryIcon = () => {
     switch (dish.category?.toLowerCase()) {
       case "veg":
-        return <Leaf className="w-4 h-4 text-green-500" />;
+        return <Leaf className="w-4 h-4 text-green-600" />;
       case "non-veg":
         return <Pizza className="w-4 h-4 text-red-500" />;
       case "diet":
@@ -56,102 +55,114 @@ export default function DishCard({ dish }: { dish: Dish }) {
     updateQty(dish.id, Math.max(0, quantity - 1));
   };
 
-  // Automatically load image from local assets
   const imageSrc =
     dish.image ||
     getDishImage(dish.name) ||
-    "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800&auto=format&fit=crop";
+    "https://images.unsplash.com/photo-1600891964599-f61ba0e24092?q=80&w=800";
 
   return (
     <>
-      {/* Card */}
+
       <motion.div
-        whileHover={{ scale: 1.02, y: -3 }}
-        transition={{ type: "spring", stiffness: 250, damping: 18 }}
+        whileHover={{ scale: 1.03, y: -4 }}
+        transition={{ type: "spring", stiffness: 260, damping: 18 }}
         onClick={() => setOpen(true)}
-        className="group relative flex flex-col overflow-hidden rounded-3xl backdrop-blur-xl border border-gray-100 transition-all duration-500 cursor-pointer"
+        className="
+    group relative rounded-3xl cursor-pointer 
+    overflow-hidden border border-white/30 
+    bg-white/60 backdrop-blur-2xl
+    shadow-[0_8px_30px_rgb(0,0,0,0.08)]
+    hover:shadow-[0_12px_40px_rgb(0,0,0,0.12)]
+    transition-all duration-500
+  "
       >
-        {/* Image */}
-        <div className="relative w-full h-56 overflow-hidden">
+        {/* ---------- IMAGE ---------- */}
+        <div className="relative h-60 overflow-hidden rounded-b-3xl">
           <motion.img
             src={imageSrc}
             alt={dish.name}
-            className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105"
+            className="object-cover w-full h-full transition-all duration-700 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent"></div>
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+
+          {/* Veg / Non-Veg Dot */}
           <div
-            className={`absolute top-3 right-3 w-3 h-3 rounded-full border border-white ${
-              isVeg ? "bg-green-500" : "bg-red-500"
-            }`}
-          ></div>
+            className={`
+        absolute top-4 right-4 w-4 h-4 rounded-full 
+        border border-white shadow-md
+        ${isVeg ? "bg-green-500" : "bg-red-500"}
+      `}
+          />
+
+          {/* Floating Price Tag */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="
+        absolute bottom-4 left-4 px-4 py-1.5
+        rounded-xl text-gray-900 text-base font-semibold
+        bg-white/90 backdrop-blur-md shadow-lg
+      "
+          >
+            ₹{dish.price}
+          </motion.div>
         </div>
 
-        {/* Content */}
-        <div className="flex flex-col justify-between flex-1 p-5">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-              {getCategoryIcon()} {dish.name}
-            </h3>
+        {/* ---------- CONTENT ---------- */}
+        <div className="p-6">
+          <h3 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
+            {getCategoryIcon()} {dish.name}
+          </h3>
 
-            {/* Rating + Time */}
-            <div className="flex items-center gap-4 mt-1">
-              <div className="flex items-center gap-1 text-sm text-gray-700 font-medium">
-                <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                {dish.rating ? dish.rating.toFixed(1) : "4.5"}
-              </div>
-              <div className="flex items-center gap-1 text-sm text-gray-600">
-                <Clock className="w-4 h-4 text-gray-500" />
-                15–20 mins
-              </div>
-            </div>
-
-            <p className="text-gray-600 text-sm mt-2 line-clamp-2 leading-relaxed">
-              {dish.description ||
-                "Crafted with premium ingredients for a delightful experience."}
-            </p>
-          </div>
-
-          <div className="flex items-center justify-between mt-5">
-            <span className="text-xl font-semibold text-gray-900">
-              ₹{dish.price}
+          <div className="flex items-center gap-5 mt-3 text-sm text-gray-600">
+            <span className="flex items-center gap-1">
+              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+              {dish.rating?.toFixed(1) ?? "4.5"}
             </span>
 
-            {/* Quantity Control */}
+            <span className="flex items-center gap-1">
+              <Clock className="w-4 h-4 text-gray-500" /> 15–20 mins
+            </span>
+          </div>
+
+          <p className="mt-3 text-gray-600 text-sm leading-relaxed line-clamp-2">
+            {dish.description ??
+              "Made with fresh premium ingredients and authentic flavors."}
+          </p>
+
+          {/* ---------- CART ---------- */}
+          <div className="flex items-center justify-between mt-6">
             <AnimatePresence mode="wait" initial={false}>
               {quantity === 0 ? (
                 <motion.button
                   key="add"
                   onClick={handleAdd}
-                  whileHover={{ scale: 1.05 }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-white bg-orange-500 transition-all"
+                  whileHover={{ scale: 1.07 }}
+                  className="
+              flex items-center gap-2 px-5 py-2.5
+              bg-gradient-to-r from-orange-500 to-amber-400 
+              text-white rounded-full text-sm font-medium
+              shadow-md hover:shadow-lg transition-all
+            "
                 >
-                  <ShoppingBag className="w-4 h-4" /> Add
+                  <ShoppingBag className="w-4 h-4" /> Add to Cart
                 </motion.button>
               ) : (
                 <motion.div
                   key="counter"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center bg-gradient-to-r from-green-50 to-green-100 rounded-full px-3 py-1.5 shadow-sm"
+                  className="
+              flex items-center gap-3 px-4 py-2
+              bg-green-50 border border-green-200
+              shadow-sm rounded-full
+            "
                 >
-                  <button
-                    onClick={handleDecrease}
-                    className="p-1 text-green-700 hover:text-green-900"
-                  >
-                    <Minus size={16} />
+                  <button onClick={handleDecrease}>
+                    <Minus className="w-4 h-4 text-green-700" />
                   </button>
-                  <span className="px-3 text-sm font-semibold text-gray-800">
-                    {quantity}
-                  </span>
-                  <button
-                    onClick={handleIncrease}
-                    className="p-1 text-green-700 hover:text-green-900"
-                  >
-                    <Plus size={16} />
+                  <span className="text-gray-900 font-semibold">{quantity}</span>
+                  <button onClick={handleIncrease}>
+                    <Plus className="w-4 h-4 text-green-700" />
                   </button>
                 </motion.div>
               )}
@@ -160,69 +171,73 @@ export default function DishCard({ dish }: { dish: Dish }) {
         </div>
       </motion.div>
 
-      {/* Quick View Modal */}
+
+      {/* ---------------- MODAL ---------------- */}
       <AnimatePresence>
         {open && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md"
+            className="
+              fixed inset-0 z-50 flex items-center justify-center 
+              bg-black/60 backdrop-blur-md
+            "
           >
             <motion.div
               initial={{ y: 80, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 80, opacity: 0 }}
-              transition={{ duration: 0.35 }}
-              className="relative bg-white/90 backdrop-blur-xl border border-gray-100 rounded-3xl shadow-2xl w-[90%] max-w-lg p-7"
+              transition={{ duration: 0.3 }}
+              className="
+                relative w-[90%] max-w-lg p-6 
+                bg-white/90 backdrop-blur-xl 
+                rounded-3xl shadow-xl border border-gray-200
+              "
             >
-              {/* Close */}
               <button
                 onClick={() => setOpen(false)}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition-colors"
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700"
               >
-                <X size={22} />
+                <X size={24} />
               </button>
 
-              {/* Image */}
-              <div className="w-full h-64 rounded-2xl overflow-hidden mb-6 shadow-sm">
-                <img
-                  src={imageSrc}
-                  alt={dish.name}
-                  className="object-cover w-full h-full"
-                />
+              <div className="h-64 w-full rounded-2xl overflow-hidden shadow-md mb-6">
+                <img src={imageSrc} className="w-full h-full object-cover" />
               </div>
 
-              {/* Modal Info */}
-              <div className="space-y-3">
-                <h2 className="text-2xl font-semibold text-gray-900 flex items-center gap-2">
-                  {getCategoryIcon()} {dish.name}
-                </h2>
-                <div className="flex items-center gap-4 text-sm text-gray-700">
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    {dish.rating ? dish.rating.toFixed(1) : "4.5"}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4 text-gray-500" />
-                    15–20 mins
-                  </div>
+              <h2 className="text-2xl font-semibold flex items-center gap-2">
+                {getCategoryIcon()} {dish.name}
+              </h2>
+
+              <div className="flex items-center gap-4 mt-2 text-gray-700 text-sm">
+                <div className="flex items-center gap-1">
+                  <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  {dish.rating ? dish.rating.toFixed(1) : "4.5"}
                 </div>
-                <p className="text-gray-700 text-sm leading-relaxed">
-                  {dish.description}
-                </p>
+                <div className="flex items-center gap-1">
+                  <Clock className="w-4 h-4 text-gray-500" />
+                  15–20 mins
+                </div>
               </div>
 
-              <div className="flex items-center justify-between mt-8">
-                <span className="text-2xl font-bold text-gray-900">
-                  ₹{dish.price}
-                </span>
+              <p className="mt-4 text-gray-700 leading-relaxed">
+                {dish.description}
+              </p>
+
+              <div className="flex justify-between items-center mt-8">
+                <span className="text-2xl font-bold">₹{dish.price}</span>
+
                 <motion.button
                   onClick={() => add(dish, 1)}
                   whileHover={{ scale: 1.05 }}
-                  className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-orange-500 to-amber-400 text-white rounded-full font-medium shadow-md hover:shadow-lg transition-all"
+                  className="
+                    px-6 py-2.5 rounded-full 
+                    bg-gradient-to-r from-orange-500 to-amber-400 
+                    text-white font-medium shadow-md
+                  "
                 >
-                  <ShoppingBag className="w-5 h-5" />
+                  <ShoppingBag className="inline w-5 h-5 mr-2" />
                   Add to Cart
                 </motion.button>
               </div>
