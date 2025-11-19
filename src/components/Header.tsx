@@ -40,7 +40,7 @@ export default function Header() {
   return (
     <>
       <header
-        className={`${headerBg} sticky top-0 z-50 backdrop-blur-md border-white/30 shadow-md border-b-6 rounded-[25px] mb-1 mt-1`}
+        className={`${headerBg} sticky top-0 z-50 backdrop-blur-md border-white/30 shadow-md border-b-6 rounded-b-[25px] mb-1 `}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-6 py-3 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
