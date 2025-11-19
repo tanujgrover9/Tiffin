@@ -1,7 +1,6 @@
 import { useLocation } from "react-router-dom";
 import heroVeg from "../assets/img/ChatGPT Image Nov 19, 2025, 09_20_22 AM (1).png";
 import heroPlate from "../assets/categories/shawarma.png";
-import { Truck } from "lucide-react";
 
 export default function HeroSection() {
   const loc = useLocation();
