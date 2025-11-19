@@ -28,7 +28,7 @@ export default function HeroSection() {
           <img
             src={heroVeg}
             alt="Veggies"
-            className="absolute right-[5px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
+            className="absolute right-[15px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
           />
         </div>
 
