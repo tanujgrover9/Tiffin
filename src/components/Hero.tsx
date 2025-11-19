@@ -53,12 +53,12 @@ export default function HeroSection() {
           </h3>
 
           {/* DELIVERY LABEL */}
-          <div className="mt-6 inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full backdrop-blur-md shadow-sm mb-10">
+          {/* <div className="mt-6 inline-flex items-center gap-2 bg-white/20 px-4 py-2 rounded-full backdrop-blur-md shadow-sm mb-10">
             <Truck className="w-5 h-5 text-white" />
             <p className="text-sm md:text-base font-medium text-white tracking-wide">
               Delicious & homely meals delivered fast!
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* MARQUEE SCROLLER */}
