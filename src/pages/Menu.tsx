@@ -4,12 +4,11 @@ import { motion } from "framer-motion";
 import { Search, SlidersHorizontal, Filter, XCircle } from "lucide-react";
 import { SAMPLE_MENU } from "../data/sampleMenu";
 import DishCard from "../components/DishCard";
-// import { useCartStore } from "../store/cartStore";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 // --- Category Images --
-import all from '../assets/categories/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png'
+import all from "../assets/categories/3d-icon-plate-with-traditional-indian-cuisine-illustration-logo_762678-68687.png";
 import momo from "../assets/categories/momo.png";
 import biryani from "../assets/categories/biryani.png";
 import pasta from "../assets/categories/pasta.png";
@@ -24,6 +23,7 @@ export default function Menu() {
   const [sortBy, setSortBy] = useState("none");
   const [maxPrice, setMaxPrice] = useState(1000);
 
+  // Category list
   const categoryItems = [
     { name: "All", image: all },
     { name: "Momo", image: momo },
@@ -35,16 +35,23 @@ export default function Menu() {
     { name: "Shawarma", image: shawarma },
   ];
 
+  // ------------------------ FILTER LOGIC ------------------------
   const filtered = useMemo(() => {
-    let list = SAMPLE_MENU.filter(
-      (m) =>
-        (activeCategory === "All" ||
-          m.category.toLowerCase() === activeCategory.toLowerCase()) &&
-        m.name.toLowerCase().includes(searchQuery.toLowerCase()) &&
-        m.price <= maxPrice
-    );
+    let list = SAMPLE_MENU.filter((item) => {
+      const categoryMatch =
+        activeCategory === "All" ||
+        item.category?.toLowerCase() === activeCategory.toLowerCase();
 
-    // Safe rating sort: treat undefined as 0
+      const searchMatch = item.name
+        .toLowerCase()
+        .includes(searchQuery.toLowerCase());
+
+      const priceMatch = item.price <= maxPrice;
+
+      return categoryMatch && searchMatch && priceMatch;
+    });
+
+    // Sorting
     if (sortBy === "priceLowHigh") list.sort((a, b) => a.price - b.price);
     if (sortBy === "priceHighLow") list.sort((a, b) => b.price - a.price);
     if (sortBy === "rating")
@@ -54,53 +61,50 @@ export default function Menu() {
   }, [activeCategory, searchQuery, maxPrice, sortBy]);
 
   return (
-    <div id="indian-food-section" className="min-h-screen  px-4 md:px-10 py-8">
-    
-
-      {/* Header */}
-      <div className=" mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">
-          {/* Explore Our{" "} */}
-          <span className="text-orange-500 ">
-            Delicious Menu
-          </span>
+    <div id="indian-food-section" className="min-h-screen px-4 md:px-10 py-10">
+      
+      {/* ------------------------------ HEADER ------------------------------ */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-10 text-center"
+      >
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight bg-gradient-to-r 
+          from-orange-500 to-amber-600 bg-clip-text text-transparent">
+          Our Delicious Menu
         </h1>
-        {/* <p className="text-gray-500 mt-2">
-          Discover our best food options — browse by category or search your
-          favorite dish
-        </p> */}
-      </div>
+      </motion.div>
 
-      {/* Category Section */}
+      {/* ------------------------------ CATEGORY FILTER ------------------------------ */}
       <section className="mb-10">
-        <h2 className="  text-gray-800 mb-4 ">
+        <h2 className="text-xl font-semibold text-gray-800 mb-5">
           Choose Your Favorite Category
         </h2>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-5 justify-items-center">
+
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-6 justify-items-center">
           {categoryItems.map((cat) => (
             <motion.div
               key={cat.name}
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setActiveCategory(cat.name)}
-              className={`cursor-pointer text-center transition-all ${
-                activeCategory === cat.name
-                  ? "ring-4 ring-orange-400 rounded-2xl"
-                  : "opacity-90 hover:opacity-100"
-              }`}
-            >
-              <div className="p-4">
-                <img
-                  src={cat.image}
-                  alt={cat.name}
-                  className="w-20 h-20 object-contain mx-auto drop-shadow-md"
-                />
-              </div>
-              <p
-                className={`mt-2 font-medium text-gray-700 ${
+              className={`cursor-pointer text-center px-4 py-3 rounded-2xl transition-all border shadow-sm 
+                ${
                   activeCategory === cat.name
-                    ? "text-orange-600 font-semibold"
-                    : ""
+                    ? "border-orange-500 bg-orange-50 shadow-md"
+                    : "border-gray-200 hover:bg-gray-50"
+                }`}
+            >
+              <img
+                src={cat.image}
+                alt={cat.name}
+                className="w-16 h-16 mx-auto object-contain"
+              />
+              <p
+                className={`mt-2 text-sm font-medium ${
+                  activeCategory === cat.name
+                    ? "text-orange-600"
+                    : "text-gray-700"
                 }`}
               >
                 {cat.name}
@@ -110,21 +114,24 @@ export default function Menu() {
         </div>
       </section>
 
-      {/* Filter/Search Bar */}
+      {/* ------------------------------ FILTER BAR ------------------------------ */}
       <motion.div
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
-        className="sticky top-4 z-20 bg-white/80 backdrop-blur-xl border border-gray-200 rounded-2xl shadow-sm px-4 py-3 flex flex-wrap items-center justify-between gap-4"
+        className="sticky top-4 z-20 bg-white/90 backdrop-blur-xl border border-gray-200 
+        rounded-2xl shadow-md px-4 py-3 flex flex-wrap items-center justify-between gap-4"
       >
+        
         {/* Search */}
-        <div className="relative flex-1 min-w-[220px]">
+        <div className="relative flex-1 min-w-[240px]">
           <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
           <input
             type="text"
             placeholder="Search for dishes, cuisines..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-orange-400 text-sm"
+            className="w-full pl-10 pr-10 py-2 rounded-xl border border-gray-200 bg-white 
+              focus:outline-none focus:ring-2 focus:ring-orange-400 text-sm"
           />
           {searchQuery && (
             <XCircle
@@ -135,13 +142,14 @@ export default function Menu() {
           )}
         </div>
 
-        {/* Sort */}
+        {/* Sort Dropdown */}
         <div className="flex items-center gap-2">
           <SlidersHorizontal size={18} className="text-gray-600" />
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-1 focus:ring-orange-400 bg-white"
+            className="text-sm border border-gray-200 rounded-lg px-3 py-1.5 
+              focus:outline-none focus:ring-1 focus:ring-orange-400 bg-white"
           >
             <option value="none">Sort by</option>
             <option value="priceLowHigh">Price: Low → High</option>
@@ -150,8 +158,8 @@ export default function Menu() {
           </select>
         </div>
 
-        {/* Price Range */}
-        <div className="flex items-center gap-2">
+        {/* Price Slider */}
+        <div className="flex items-center gap-2 whitespace-nowrap">
           <Filter size={18} className="text-gray-600" />
           <label className="text-sm text-gray-600">Max ₹{maxPrice}</label>
           <input
@@ -165,35 +173,36 @@ export default function Menu() {
         </div>
       </motion.div>
 
-      {/* Menu Grid */}
+      {/* ------------------------------ GRID ------------------------------ */}
       <motion.div
         layout
         className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         {filtered.length > 0 ? (
-          filtered.map((d) => (
+          filtered.map((dish) => (
             <motion.div
-              key={d.id}
+              key={dish.id}
               layout
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <DishCard dish={d} />
+              <DishCard dish={dish} />
             </motion.div>
           ))
         ) : (
           <div className="col-span-full text-center py-10 text-gray-500 text-lg">
-            No dishes found. Try adjusting filters or search.
+            No dishes found. Try adjusting filters.
           </div>
         )}
       </motion.div>
 
-      {/* Featured Section */}
+      {/* ------------------------------ FEATURED SECTION ------------------------------ */}
       <section className="mt-20">
         <h2 className="text-4xl text-center mb-8 font-bold text-orange-500">
           Featured Dishes
         </h2>
+
         <Carousel
           autoPlay
           autoPlaySpeed={4000}
@@ -204,9 +213,9 @@ export default function Menu() {
             mobile: { breakpoint: { max: 464, min: 0 }, items: 1 },
           }}
         >
-          {SAMPLE_MENU.slice(0, 6).map((d) => (
-            <div key={d.id} className="px-3">
-              <DishCard dish={d} />
+          {SAMPLE_MENU.slice(0, 6).map((dish) => (
+            <div key={dish.id} className="px-3">
+              <DishCard dish={dish} />
             </div>
           ))}
         </Carousel>
