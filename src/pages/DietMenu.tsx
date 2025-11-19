@@ -68,7 +68,7 @@ export default function DietMenu() {
   return (
     <>
     <HeroSection/>
-      <div className=" min-h-screen  px-4 md:px-10 py-8 bg-gradient-to-b from-lime-100 via-lime-100 to-yellow-100">
+      <div className=" min-h-screen  px-4 md:px-10 py-8 bg-gradient-to-b from-green-100 via-green-100 to-yellow-100">
         {/* 🔙 Back Button */}
         <button
           onClick={() => navigate(-1)}
