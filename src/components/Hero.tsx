@@ -22,7 +22,7 @@ export default function HeroSection() {
           <img
             src={heroPlate}
             alt="Plate"
-            className="absolute left-[-20px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
+            className="absolute left-[-10px] bottom-[10%] w-36 md:w-80 lg:w-96 object-contain float"
           />
 
           <img
@@ -34,7 +34,7 @@ export default function HeroSection() {
 
         {/* HERO TEXT */}
         <div className="relative z-10 text-center px-6 md:px-16 py-28 md:py-20 lg:py-15">
-          <h1 className="text-7xl md:text-8xl font-extrabold tracking-tight">
+          <h1 className="text-6xl md:text-8xl font-extrabold tracking-tight">
             <span className="bg-gradient-to-r from-white to-yellow-200 bg-clip-text text-transparent drop-shadow-xl">
               Homely
             </span>
