@@ -1,6 +1,5 @@
 import { useLocation } from "react-router-dom";
 import heroVeg from "../assets/img/ChatGPT Image Nov 19, 2025, 09_20_22 AM (1).png";
-// import { Heart } from "lucide-react";
 
 const BENEFITS = [
   "No Delivery Charge",
@@ -72,11 +71,11 @@ export default function HeroSection() {
           shadow-[0_14px_35px_rgba(15,23,42,0.12)]
         `}
       >
-        {/* FLOATING IMAGE — with STEAM DOODLES */}
+        {/* FLOATING IMAGE + PRICE TAG */}
         <div
           className="
             absolute 
-            left-0 bottom-0 translate-y-0 pb-2
+            left-2 bottom-1
             md:left-auto md:bottom-auto 
             md:right-4 md:top-1/2 md:-translate-y-1/2 md:pr-4
             z-0 pointer-events-none
@@ -105,11 +104,123 @@ export default function HeroSection() {
               ))}
             </div>
 
+            {/* DESKTOP/TABLET PRICE CARD (overlapping pill) */}
+            <div className="hidden md:block absolute bottom-4 left-[-40px] z-20 pointer-events-auto">
+              <div className="relative inline-flex items-center">
+                {/* Main card */}
+                <div
+                  className={`
+                    flex flex-col gap-1 rounded-2xl
+                    border border-white/80 bg-white/95 backdrop-blur-md
+                    shadow-[0_18px_45px_rgba(15,23,42,0.4)]
+                    px-4 py-2.5 pr-24
+                    -rotate-2 hover:-rotate-1 transition-transform duration-300
+                  `}
+                >
+                  <span
+                    className={`
+                      text-[10px] font-semibold tracking-[0.22em]
+                      uppercase flex items-center gap-1
+                      ${isDiet ? "text-emerald-500" : "text-orange-500"}
+                    `}
+                  >
+                    <span className="text-[12px]">●</span>
+                    HomelyBox
+                  </span>
+
+                  <span className="text-[11px] font-medium text-slate-600">
+                    • daily meals • home meals
+                  </span>
+                </div>
+
+                {/* Overlapping price pill */}
+                <div className="absolute right-[-10px] top-1/2 -translate-y-1/2">
+                  <div
+                    className={`
+                      inline-flex items-baseline gap-1 rounded-full
+                      px-4 py-1.5
+                      text-white shadow-[0_14px_35px_rgba(15,23,42,0.55)]
+                      bg-gradient-to-r
+                      ${
+                        isDiet
+                          ? "from-emerald-500 to-emerald-600"
+                          : "from-orange-500 to-orange-600"
+                      }
+                    `}
+                  >
+                    <span className="text-[11px] font-semibold opacity-90">
+                      Starts at
+                    </span>
+                    <span className="flex items-baseline leading-none">
+                      <span className="text-xs mr-0.5 font-semibold">₹</span>
+                      <span className="text-lg font-extrabold">80</span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* HERO IMAGE */}
             <img
               src={heroVeg}
               alt="Homely food tiffin"
               className="w-24 md:w-70 lg:w-80 object-contain float drop-shadow-[0_14px_28px_rgba(15,23,42,0.18)]"
             />
+          </div>
+        </div>
+
+        {/* MOBILE PRICE CARD – bottom-right */}
+        <div className="absolute bottom-2 right-3 md:hidden z-10">
+          <div className="relative inline-flex items-center">
+            {/* Main white card */}
+            <div
+              className={`
+                flex flex-col gap-0.5 rounded-2xl
+                border border-white/80 bg-white/95 backdrop-blur-md
+                shadow-[0_12px_32px_rgba(15,23,42,0.35)]
+                px-3 py-2 pr-16
+                -rotate-2
+              `}
+            >
+              <span
+                className={`
+                  text-[9px] font-semibold tracking-[0.2em]
+                  uppercase flex items-center gap-1
+                  ${isDiet ? "text-emerald-500" : "text-orange-500"}
+                `}
+              >
+                <span className="text-[11px]">●</span>
+                HomelyBox
+              </span>
+
+              <span className="text-[10px] font-medium text-slate-600">
+                daily meals • home meals
+              </span>
+            </div>
+
+            {/* Overlapping price pill */}
+            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2">
+              <div
+                className={`
+                  inline-flex items-center gap-1 rounded-full
+                  px-3 py-1.5
+                  text-[11px] font-semibold text-white
+                  shadow-[0_10px_26px_rgba(15,23,42,0.45)]
+                  bg-gradient-to-r
+                  ${
+                    isDiet
+                      ? "from-emerald-500 to-emerald-600"
+                      : "from-orange-500 to-orange-600"
+                  }
+                `}
+              >
+                <span>Starts at</span>
+                <span className="flex items-baseline leading-none">
+                  <span className="text-[10px] mr-0.5 font-semibold">₹</span>
+                  <span className="text-sm font-extrabold">80</span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -127,7 +238,6 @@ export default function HeroSection() {
                 text-center md:text-left
               "
             >
-              {/* Homely with underline */}
               <span className={`relative inline-block ${primaryText}`}>
                 Homely
                 <svg
@@ -146,7 +256,6 @@ export default function HeroSection() {
                 </svg>
               </span>
 
-              {/* Box badge */}
               <span className="inline-flex">
                 <span
                   className={`
@@ -165,7 +274,6 @@ export default function HeroSection() {
                     }
                   `}
                 >
-                  {/* Love Icon */}
                   <span
                     className={`
                       inline-flex items-center justify-center
@@ -181,11 +289,7 @@ export default function HeroSection() {
                   >
                     ❤️
                   </span>
-
-                  {/* Text */}
                   <span>Box.</span>
-
-                  {/* Leaf (only if diet) */}
                   {isDiet && (
                     <span className="text-base md:text-lg -mt-0.5 opacity-90">
                       🌿
@@ -212,11 +316,9 @@ export default function HeroSection() {
               {description}
             </p>
 
-            {/* CTA + STATS + TRUSTED CUSTOMERS (compact row) */}
+            {/* CTA + STATS + TRUSTED CUSTOMERS */}
             <div className="mt-5 flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-6 justify-center md:justify-start">
-              {/* LEFT: CTA + QUICK STATS */}
               <div className="w-full md:w-auto space-y-3">
-                {/* CTA BUTTONS */}
                 <div className="flex flex-col sm:flex-row items-center sm:items-stretch gap-3 sm:gap-3 justify-start">
                   <button
                     onClick={() => {
@@ -242,7 +344,6 @@ export default function HeroSection() {
                   </button>
                 </div>
 
-                {/* QUICK STATS */}
                 <div
                   className={`
                     flex flex-wrap gap-x-3 gap-y-1 text-[11px] md:text-xs 
@@ -261,9 +362,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              {/* RIGHT: TRUSTED CUSTOMERS */}
               <div className="flex flex-col md:flex-row items-center md:items-center justify-center md:justify-start gap-3 md:gap-4">
-                {/* Avatars */}
                 <div className="flex -space-x-3">
                   {AVATAR_URLS.map((url, i) => (
                     <img
@@ -279,7 +378,6 @@ export default function HeroSection() {
                   ))}
                 </div>
 
-                {/* Text + Arrow inline */}
                 <div
                   className={`flex items-center gap-2 font-semibold text-sm md:text-base relative ${primaryText}`}
                 >
@@ -313,17 +411,14 @@ export default function HeroSection() {
         {/* 📞 CALL NOW – rotated button on right center */}
         <a
           href="tel:+917080216257"
-          className=" md:flex items-center justify-center
-                     absolute top-1/2 -translate-y-1/2 right-[-32px]
-                     origin-center rotate-90"
+          className="md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-[-32px] origin-center rotate-90"
         >
           <button
             className="
               px-3 py-2
               text-xs font-semibold tracking-wide
-               border-orange-300/70
+              border-orange-300/70
               bg-red-500 text-white
-             
               hover:bg-orange-50 hover:-translate-y-0.5
               transition-all duration-300
             "
