@@ -71,9 +71,10 @@ export default function HeroSection() {
           shadow-[0_14px_35px_rgba(15,23,42,0.12)]
         `}
       >
-        {/* FLOATING IMAGE + PRICE TAG */}
+        {/* FLOATING IMAGE + PRICE TAG (DESKTOP/TABLET ONLY) */}
         <div
           className="
+            hidden md:block
             absolute 
             left-2 bottom-1
             md:left-auto md:bottom-auto 
@@ -105,7 +106,7 @@ export default function HeroSection() {
             </div>
 
             {/* DESKTOP/TABLET PRICE CARD (overlapping pill) */}
-            <div className="hidden md:block absolute bottom-4 left-[-40px] z-20 pointer-events-auto">
+            <div className="absolute bottom-4 left-[-40px] z-20 pointer-events-auto">
               <div className="relative inline-flex items-center">
                 {/* Main card */}
                 <div
@@ -160,7 +161,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* HERO IMAGE */}
+            {/* HERO IMAGE (DESKTOP/TABLET) */}
             <img
               src={heroVeg}
               alt="Homely food tiffin"
@@ -169,64 +170,71 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* MOBILE PRICE CARD – bottom-right */}
-        <div className="absolute bottom-2 right-3 md:hidden z-10">
-          <div className="relative inline-flex items-center">
-            {/* Main white card */}
-            <div
-              className={`
-                flex flex-col gap-0.5 rounded-2xl
-                border border-white/80 bg-white/95 backdrop-blur-md
-                shadow-[0_12px_32px_rgba(15,23,42,0.35)]
-                px-3 py-2 pr-16
-                -rotate-2
-              `}
-            >
-              <span
-                className={`
-                  text-[9px] font-semibold tracking-[0.2em]
-                  uppercase flex items-center gap-1
-                  ${isDiet ? "text-emerald-500" : "text-orange-500"}
-                `}
-              >
-                <span className="text-[11px]">●</span>
-                HomelyBox
-              </span>
+        {/* TEXT CONTENT + MOBILE IMAGE / PRICE CARD */}
+        <div className="relative z-10 px-5 md:px-12 pt-7 pb-10 md:pt-9 md:pb-12">
+          <div className="max-w-lg mx-auto md:mx-0 text-center md:text-left">
+            {/* MOBILE HERO IMAGE + PRICE (INLINE, NO OVERLAP) */}
+            <div className="md:hidden flex flex-col items-center gap-3 mb-4">
+              <img
+                src={heroVeg}
+                alt="Homely food tiffin"
+                className="w-32 h-auto object-contain drop-shadow-[0_10px_20px_rgba(15,23,42,0.18)]"
+              />
 
-              <span className="text-[10px] font-medium text-slate-600">
-                daily meals • home meals
-              </span>
-            </div>
+              {/* MOBILE PRICE CARD – INLINE */}
+              <div className="relative inline-flex items-center">
+                {/* Main white card */}
+                <div
+                  className={`
+                    flex flex-col gap-0.5 rounded-2xl
+                    border border-white/80 bg-white/95 backdrop-blur-md
+                    shadow-[0_12px_32px_rgba(15,23,42,0.35)]
+                    px-3 py-2 pr-16
+                    -rotate-2
+                  `}
+                >
+                  <span
+                    className={`
+                      text-[9px] font-semibold tracking-[0.2em]
+                      uppercase flex items-center gap-1
+                      ${isDiet ? "text-emerald-500" : "text-orange-500"}
+                    `}
+                  >
+                    <span className="text-[11px]">●</span>
+                    HomelyBox
+                  </span>
 
-            {/* Overlapping price pill */}
-            <div className="absolute right-[-6px] top-1/2 -translate-y-1/2">
-              <div
-                className={`
-                  inline-flex items-center gap-1 rounded-full
-                  px-3 py-1.5
-                  text-[11px] font-semibold text-white
-                  shadow-[0_10px_26px_rgba(15,23,42,0.45)]
-                  bg-gradient-to-r
-                  ${
-                    isDiet
-                      ? "from-emerald-500 to-emerald-600"
-                      : "from-orange-500 to-orange-600"
-                  }
-                `}
-              >
-                <span>Starts at</span>
-                <span className="flex items-baseline leading-none">
-                  <span className="text-[10px] mr-0.5 font-semibold">₹</span>
-                  <span className="text-sm font-extrabold">80</span>
-                </span>
+                  <span className="text-[10px] font-medium text-slate-600">
+                    daily meals • home meals
+                  </span>
+                </div>
+
+                {/* Overlapping price pill */}
+                <div className="absolute right-[-6px] top-1/2 -translate-y-1/2">
+                  <div
+                    className={`
+                      inline-flex items-center gap-1 rounded-full
+                      px-3 py-1.5
+                      text-[11px] font-semibold text-white
+                      shadow-[0_10px_26px_rgba(15,23,42,0.45)]
+                      bg-gradient-to-r
+                      ${
+                        isDiet
+                          ? "from-emerald-500 to-emerald-600"
+                          : "from-orange-500 to-orange-600"
+                      }
+                    `}
+                  >
+                    <span>Starts at</span>
+                    <span className="flex items-baseline leading-none">
+                      <span className="text-[10px] mr-0.5 font-semibold">₹</span>
+                      <span className="text-sm font-extrabold">80</span>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        {/* TEXT CONTENT */}
-        <div className="relative z-10 px-5 md:px-12 pt-7 pb-10 md:pt-9 md:pb-12 text-center md:text-left">
-          <div className="max-w-lg mx-auto md:mx-0">
             {/* TITLE AREA */}
             <h1
               className="
@@ -300,7 +308,12 @@ export default function HeroSection() {
             </h1>
 
             <h3
-              className={`text-xs md:text-sm font-semibold mt-3 tracking-wide flex flex-wrap items-center gap-2 justify-center md:justify-start ${primaryText}`}
+              className={`
+                text-xs md:text-sm font-semibold mt-3 tracking-wide
+                flex flex-wrap items-center gap-2
+                justify-center md:justify-start
+                ${primaryText}
+              `}
             >
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/70 shadow-[0_4px_12px_rgba(15,23,42,0.08)] border border-white/70">
                 <span className="w-2 h-2 rounded-full bg-green-500" />
@@ -408,10 +421,10 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* 📞 CALL NOW – rotated button on right center */}
+        {/* 📞 CALL NOW – rotated button on right center (ALL SIZES) */}
         <a
           href="tel:+917080216257"
-          className="md:flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-[-32px] origin-center rotate-90"
+          className="flex items-center justify-center absolute top-1/2 -translate-y-1/2 right-[-32px] origin-center rotate-90"
         >
           <button
             className="
@@ -419,7 +432,7 @@ export default function HeroSection() {
               text-xs font-semibold tracking-wide
               border-orange-300/70
               bg-red-500 text-white
-              hover:bg-orange-50 hover:-translate-y-0.5
+              hover:bg-orange-50 hover:text-red-600 hover:-translate-y-0.5
               transition-all duration-300
             "
           >
